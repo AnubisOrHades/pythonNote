@@ -1,5 +1,5 @@
 Django[
-    创建项目:	python manage.py startproject （name）
+    创建项目:	django-admin startproject （name）
     创建App:  	python manage.py startapp （name）
     创建超级管理员：	    python manage.py createsuperuser
     生成数据库迁移文件：	python manage.py makemigrations
