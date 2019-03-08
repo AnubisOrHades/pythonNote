@@ -82,8 +82,8 @@ class BookViews(ModelViewSet):
     serializer_class = BookSerializer
     pagination_class = Pagination
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
-    # authentication_classes = (JSONWebTokenAuthentication, authentication.SessionAuthentication)
-    # permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = (JSONWebTokenAuthentication, authentication.SessionAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
 
-    # def get_queryset(self):
-    #     return Book.objects.filter(auth=self.request.user)
+    def get_queryset(self):
+        return Book.objects.filter(auth=self.request.user)
