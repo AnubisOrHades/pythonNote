@@ -21,7 +21,7 @@ class User(AbstractUser):
 class Book(models.Model):
     bookName = models.CharField(max_length=20, verbose_name="书名")
     synopsis = models.TextField(verbose_name="简介")
-    auth = models.ForeignKey(User, verbose_name="作者",on_delete=models.CASCADE)
+    auth = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "书籍信息"

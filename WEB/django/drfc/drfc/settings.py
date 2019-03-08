@@ -31,6 +31,10 @@ ALLOWED_HOSTS = []
 AUTH_USER_MODEL = "User.User"
 # Application definition
 
+# AUTHENTICATION_BACKENDS = (
+#     'User.views.CustomBackend',
+# )
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

@@ -15,10 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
 from rest_framework_jwt.views import obtain_jwt_token  # 导入jwt登录
+from rest_framework import routers
+from rest_framework.documentation import include_docs_urls
+
+from User.views import UserViews, BookViews
+
+router = routers.DefaultRouter()
+router.register(r'users', UserViews)
+router.register(r'books', BookViews)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', obtain_jwt_token),  # jwt登录路由
-    path("api/", include("User.urls"))
+    # url("^api/", include(router.urls)),
+    url("^api/", include("User.urls")),
+    url(r'api/text/', include_docs_urls(title="初号")),  # 接口文档
 ]
