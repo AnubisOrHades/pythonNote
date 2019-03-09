@@ -12,6 +12,14 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework_jwt.serializers import jwt_encode_handler, jwt_payload_handler
 
 from .serializers import *
+from .tasks import *
+from django.http import HttpResponse
+
+
+def index(request, *args, **kwargs):
+    add.delay()  # 将任务教给celery执行
+    return HttpResponse('ok')
+    # return HttpResponse({'status': 'successful', 'task_id': res.task_id})
 
 
 class CustomBackend(ModelBackend):

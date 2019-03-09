@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import datetime
+# import djcelery
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    # 'djcelery',
 ]
 
 MIDDLEWARE = [
@@ -130,3 +133,14 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),  # token过期时间
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
+# djcelery.setup_loader()
+# # 传递消息时使用的redis 的ip 端口 数据库名
+# BROKER_URL = 'redis://127.0.0.1:6379/2'
+# # 在booktest文件夹里面的task模块的内容--所以需要创建模块
+# CELERY_IMPORTS = ('User.tasks')
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/1'  # Broker配置，使用Redis作为消息中间件
+
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/1'  # BACKEND配置，这里使用redis
+
+CELERY_RESULT_SERIALIZER = 'json'  # 结果序列化方案

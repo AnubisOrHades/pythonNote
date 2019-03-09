@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 from rest_framework import routers
-from .views import UserViews, BookViews
+from .views import UserViews, BookViews, index
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViews)
@@ -9,4 +9,5 @@ router.register(r'books', BookViews)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
+    url(r'^index', index)
 ]
