@@ -54,7 +54,6 @@ def poor(url):
 
         ip = IP(h, p, t)
         ip.save_txt()
-        ip.__str__()
 
 
 if __name__ == '__main__':
