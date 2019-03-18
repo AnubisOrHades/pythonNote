@@ -5,3 +5,5 @@ Django[
     生成数据库迁移文件：	python manage.py makemigrations
     执行数据库执行文件：	python manage.py migrate
 ]
+生成项目依赖文件：pip freeze > requirements.txt
+安装项目依赖文件：pip install -r requirement.txt
