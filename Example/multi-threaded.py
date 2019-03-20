@@ -7,6 +7,14 @@ tasks = queue.Queue()
 
 
 class Threading:
+    """
+    多线程
+    :param queue: 任务队列
+    :param fun:执行函数
+    :param thread_count:创建线程数量
+
+    """
+
     def __init__(self, queue, fun, thread_count):
         self.queue = queue
         self.fun = fun
@@ -24,25 +32,6 @@ class Threading:
             for th in thList:
                 th.join()
 
-
-# def ee(n):
-#     # time.sleep(2)
-#     print(n)
-
-
-# for i in range(100):
-#     tasks.put(i)
-
-# while not tasks.empty():
-#     threadingLis = []
-#     for i in range(5):
-#         task = tasks.get()
-#         t = threading.Thread(target=ee, args=(task,))
-#         threadingLis.append(t)
-#         t.start()
-#         print("第{}线程开始".format(i).center(80, "="))
-#     for t in threadingLis:
-#         t.join()
 
 if __name__ == '__main__':
     urls = ["https://www.bilibili.com/video/av27076260/?p=%d" % i for i in range(1, 20)]
