@@ -1,4 +1,4 @@
-from .command import *
+from Example.Android.command import *
 
 
 def in_game():
@@ -41,6 +41,12 @@ def house_of_mystery():
     # 进入
     click(700, 350)
     # 幻之阁
+
+    click(350, 1700)
+    free()
+    time.sleep(1)
+    free()
+    click(350, 1050)
     click(1050, 810)
     # slide()
     # 迷之阁
@@ -62,11 +68,19 @@ def union():
     click(800, 730)
     # 委托
     click(550, 1150)
+    # 进行任务
+    click(890, 1200)
+    click(450, 1400)
+    free()
+    time.sleep(2)
+    free()
+
     click(90, 300)
     # 图书馆
     click(880, 1500)
     for i in range(3):
         click(300, 660)
+        free()
     go_break()
     # 返回主页
     go_break()
@@ -81,11 +95,20 @@ def dream():
     click(700, 1050)
     # 学会委托
     click(300, 940)
+    y = 800
     for i in range(3):
-        click()
+        click(540, y)
+        click(720, 1100)
+        free()
+        y += 300
     free()
+
     # 浮梦岛
     click(300, 1500)
+    click(300, 1750)
+    free()
+    time.sleep(1)
+    free()
     # 返回主页
     go_break()
     go_break()
@@ -101,9 +124,17 @@ def garden():
     click(850, 1500)
     # 过关
     click(90, 1660)
+    click(600, 970)
     free()
+    time.sleep(1)
+    free()
+
     click(970, 1660)
+    click(600, 970)
     free()
+    time.sleep(1)
+    free()
+
     # 返回主页
     go_break()
 
@@ -116,8 +147,13 @@ def sports():
     # 进入
     click(170, 540)
     # 登台
-    for i in range(5):
+    for i in range(4):
         click(550, 1570)
+        click(870, 1600)
+        free()
+        time.sleep(1.5)
+        free()
+
     # 返回主页
     go_break()
 
@@ -182,7 +218,13 @@ def reward():
     for i in range(12):
         click(900, 850)
         free()
-    free()
+
+    time.sleep(1)
+    x = 250
+    for i in range(5):
+        click(x, 670)
+        free()
+        x += 160
 
 
 def buy():
@@ -262,6 +304,9 @@ def my_task():
         click(x, y)
         click(800, 900)
         click(470, 1400)
+        click(450, 1400)
+        free()
+        time.sleep(2)
         free()
         click(80, 300)
         if i % 2 == 1:
@@ -279,7 +324,7 @@ def run():
     :return:
     """
     # 进入游戏
-    in_game()
+    # in_game()
     # 任务    25
     my_task()
     print("已过6关")
@@ -317,3 +362,4 @@ def run():
 
 if __name__ == '__main__':
     wem = ""
+    run()
