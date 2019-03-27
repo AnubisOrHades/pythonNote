@@ -1,7 +1,7 @@
 import requests
 from lxml import etree
 from pymongo import MongoClient
-import time
+import docx
 
 
 class Poetry:
@@ -63,6 +63,44 @@ def get_content(url):
         print(p.title)
 
 
+"""
+1 生成一级目录：朝代
+2.生成二级目录：作者
+3.生成三级目录：诗题
+4.写入内容：诗内容
+"""
+
+
+def export_word():
+    doc = docx.Document()
+    conn = MongoClient("localhost", 27017)
+    db = conn.SpiderData
+    poetry = db.Poetry
+    dynastyLis = ['先秦', '两汉', '魏晋', '南北朝', '唐代', '五代', '金朝', '宋代', '明代', '元代', '清代', '近现代', '未知']
+    for dynasty in dynastyLis:
+        doc.add_heading(dynasty, level=1)
+
+        # 获取诗人集合
+        authLis = set()
+        for a in poetry.find({"dynasty": dynasty}):
+            authLis.add(a["auth"])
+
+        for auth in authLis:
+            doc.add_heading(auth, level=2)
+
+            # 获取诗人的所有诗
+            titleList = set()
+            for title in poetry.find({"dynasty": dynasty, "auth": auth}):
+                titleList.add(title["title"])
+
+            for t in titleList:
+                doc.add_heading(t, level=3)
+
+                result = poetry.find_one({"dynasty": dynasty, "auth": auth, "title": t})
+                c = doc.add_paragraph(result["content"])
+    doc.save("poetry.docx")
+
+
 def run():
     for u in URL:
         get_content(u)
@@ -70,4 +108,4 @@ def run():
 
 
 if __name__ == '__main__':
-    run()
+    export_word()
