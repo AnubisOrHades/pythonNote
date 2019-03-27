@@ -36,6 +36,7 @@ def run(local_path, url):
 
 
 if __name__ == '__main__':
-    path = r"D:\Anubis\Video\socket"
+    path = r"D:\Anubis\Video"
     urlList = ["https://www.bilibili.com/video/av17732263?p={}".format(i) for i in range(4, 15)]
-    run(path, urlList)
+    url = 'https://www.bilibili.com/video/av46495287?p=2'
+    run(path, url)
