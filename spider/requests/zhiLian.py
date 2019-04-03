@@ -15,14 +15,14 @@ def zhilian(url):
     data = json.loads(data)
     data = data["data"]["results"]
     if len(data) == 0:
-        print(url)
-        print(len(data))
-        return "NOLL"
+        print("空路由：", url)
+        return "break"
     for d in data:
+        d["_id"] = d["number"]
         zl.save(d)
 
 
-if __name__ == '__main__':
+def start():
     crity = {
         "北京": "530", "上海": "538", "深圳": "765", "石家庄": "565", "哈尔滨": "622",
         "广州": "763", "天津": "531", "成都": "801", "杭州": "653", "武汉": "736",
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     }
     for c in crity.values():
         i = 1
-        while i < 15:
+        while 1:
             if i == 1:
                 url = "https://fe-api.zhaopin.com/c/i/sou?" \
                       "pageSize=90&" \
@@ -62,13 +62,19 @@ if __name__ == '__main__':
                       "_v=0.74799541&" \
                       "x-zp-page-request-id=d139e6630673447883c07668887982c5-1552701595756-581927" % (
                           i * 90 - 90, 90, c)
+            print(("%d  %s" % (i, c)).center(90, '='))
             i += 1
             # print(url)
-            print(("%d  %s" % (i, c)).center(90, '='))
+
             try:
-                zhilian(url)
-            except:
-                print("Error:\n",url)
-            time.sleep(5)
-        #     break
-        #         # break
+                b = zhilian(url)
+                if b == "break":
+                    break
+                time.sleep(10)
+            except Exception as e:
+                print("Error:%s\n" % e, url)
+    print("结束".center(100, '$'))
+
+
+if __name__ == '__main__':
+    start()
