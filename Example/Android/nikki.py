@@ -23,6 +23,7 @@ def free():
     :return:
     """
     click(950, 1800)
+    time.sleep(1)
 
 
 def go_break():
@@ -30,7 +31,7 @@ def go_break():
     返回
     :return:
     """
-    click(70, 100)
+    click(80, 90)
 
 
 def house_of_mystery():
@@ -75,7 +76,7 @@ def union():
     time.sleep(2)
     free()
 
-    click(90, 300)
+    click(90, 310)
     # 图书馆
     click(880, 1500)
     for i in range(3):
@@ -167,14 +168,14 @@ def cabana():
     click(850, 1700)
     # 愿之庭
     click(1000, 1240)
-    y = 350+400
+    y = 350 + 400
     for i in range(3):
         click(500, y)
-        click(350,1750)
+        click(350, 1750)
         free()
         time.sleep(1)
         free()
-        click(350,1070)
+        click(350, 1070)
         go_break()
         y += 400
     go_break()
@@ -319,9 +320,61 @@ def my_task():
         else:
             y += 130
             x -= 500
-
     free()
 
+
+def change_clothes(collocation):
+    """
+    更换搭配
+    :param collocation: 搭配列表
+    :return:
+    """
+    click(800, 1400)
+    click(60, 880)
+    # 清空搭配
+    click(680, 1580)
+    # 切换adbkeyboard输入法
+    os.system("adb shell ime set com.android.adbkeyboard/.AdbIME")
+    for clothes in collocation:
+        # 搜索
+        click(680, 1000)
+        # 输入衣服
+        click(500, 820)
+        input_abd(clothes)
+        click(500, 300)
+        # 选中衣服
+        click(900, 170)
+    # 保存搭配
+    click(160, 1780)
+    # 切换搜狗输入法
+    os.system("adb shell ime set com.sohu.inputmethod.sogou/.SogouIME")
+    go_break()
+
+
+def task():
+    # 开始任务
+    click(840, 1400)
+    click(980,1850)
+    click(720,1050)
+    # 选择搭配
+    click(680,1220)
+    click(930,520)
+    click(170,1770)
+
+    click(915,1770)
+    time.sleep(1)
+    click(170,1770)
+    time.sleep(1)
+    click(670,1770)
+    time.sleep(1)
+    click(460,1770)
+    time.sleep(1)
+    click(170, 1770)
+
+    free()
+    free()
+    free()
+    free()
 
 def run():
     """
@@ -329,14 +382,14 @@ def run():
     :return:
     """
     while 1:
-        mobile=devices()
+        mobile = devices()
         if mobile is not None:
             print("手机已连接")
             break
         else:
             print("手机未连接，请连接手机，打开USB调试")
     # 进入游戏
-    in_game()
+    # in_game()
     # 任务    25
     my_task()
     print("已过6关")
@@ -375,5 +428,8 @@ def run():
 if __name__ == '__main__':
     wem = ""
     # run()
-
-    cabana()
+    collocation = ["莹缀彩结", "欢愉魔法", "萌宠之心", "彩夜星光", "舞动梦想·华丽", "吉祥花结",
+                   "冠蓝鸦", "彩虹奶霜", "暖心相伴", "绮梦星光", "暖心玩偶·头", "雷克斯暴龙",
+                   "镂空小礼袖", "梦幻之辉", "瑰丽人生", "恢宏时代"]
+    # change_clothes(collocation)
+    task()

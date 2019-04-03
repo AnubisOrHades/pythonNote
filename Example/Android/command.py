@@ -20,7 +20,7 @@ def break_adb():
     os.system("adb shell input keyevent 4")
 
 
-def click(x, y, t=2):
+def click(x, y, t=1):
     """
     单击
     :param x: x坐标
@@ -68,13 +68,13 @@ def input_abd(text):
     :return:
     """
     # 切换adbkeyboard输入法
-    os.system("adb shell ime set com.android.adbkeyboard/.AdbIME")
+    # os.system("adb shell ime set com.android.adbkeyboard/.AdbIME")
 
     code = "adb shell am broadcast -a ADB_INPUT_TEXT --es msg {}".format(text)
     os.system(code)
     # 切换搜狗输入法
     # os.system("adb shell ime set com.sohu.inputmethod.sogou/.SogouIME")
-    time.sleep(2)
+    time.sleep(1)
 
 
 if __name__ == '__main__':
