@@ -354,20 +354,20 @@ def change_clothes(collocation):
 def task():
     # 开始任务
     click(840, 1400)
-    click(980,1850)
-    click(720,1050)
+    click(980, 1850)
+    click(720, 1050)
     # 选择搭配
-    click(680,1220)
-    click(930,520)
-    click(170,1770)
+    click(680, 1220)
+    click(930, 520)
+    click(170, 1770)
 
-    click(915,1770)
+    click(915, 1770)
     time.sleep(1)
-    click(170,1770)
+    click(170, 1770)
     time.sleep(1)
-    click(670,1770)
+    click(670, 1770)
     time.sleep(1)
-    click(460,1770)
+    click(460, 1770)
     time.sleep(1)
     click(170, 1770)
 
@@ -375,6 +375,7 @@ def task():
     free()
     free()
     free()
+
 
 def run():
     """
@@ -391,7 +392,7 @@ def run():
     # 进入游戏
     # in_game()
     # 任务    25
-    my_task()
+    # my_task()
     print("已过6关")
     # 迷之屋   15
     house_of_mystery()
@@ -427,9 +428,9 @@ def run():
 
 if __name__ == '__main__':
     wem = ""
-    # run()
-    collocation = ["莹缀彩结", "欢愉魔法", "萌宠之心", "彩夜星光", "舞动梦想·华丽", "吉祥花结",
-                   "冠蓝鸦", "彩虹奶霜", "暖心相伴", "绮梦星光", "暖心玩偶·头", "雷克斯暴龙",
-                   "镂空小礼袖", "梦幻之辉", "瑰丽人生", "恢宏时代"]
-    # change_clothes(collocation)
-    task()
+    run()
+    # collocation = ["莹缀彩结", "欢愉魔法", "萌宠之心", "彩夜星光", "舞动梦想·华丽", "吉祥花结",
+    #                "冠蓝鸦", "彩虹奶霜", "暖心相伴", "绮梦星光", "暖心玩偶·头", "雷克斯暴龙",
+    #                "镂空小礼袖", "梦幻之辉", "瑰丽人生", "恢宏时代"]
+    # # change_clothes(collocation)
+    # task()
