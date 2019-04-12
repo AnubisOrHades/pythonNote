@@ -36,7 +36,7 @@ def run(local_path, url):
 
 
 if __name__ == '__main__':
-    path = r"D:\Anubis\Video"
-    urlList = ["https://www.bilibili.com/video/av17732263?p={}".format(i) for i in range(4, 15)]
+    path = r"D:\Anubis\Video\Vue_黑马"
+    urlList = ["https://www.bilibili.com/video/av36650577/?p={}".format(i) for i in range(146, 204)]
     url = 'https://www.bilibili.com/video/av46495287?p=2'
-    run(path, url)
+    run(path, urlList)
