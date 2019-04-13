@@ -7,6 +7,7 @@ def_dict = [
         "1-10": [
             {"谁是小偷": "find_thief"},
             {"1、2、3、4、组成的三位数": "num_san"},
+            {}
 
         ]
     },
@@ -412,11 +413,27 @@ def prime_number(start, end):
 
 
 def narcissistic_number():
-    for n in range(100, 1000):
-        i = n / 100
-        j = n / 10 % 10
-        k = n % 10
-        if n == i ** 3 + j ** 3 + k ** 3:
+    n = int(input("请输入最大范围"))
+    while 1:
+        if n <= 0:
+            n = int(input("请输入正整数"))
+        else:
+            break
+    for n in range(n):
+        power = len(str(n))
+        numList = []
+        m = n
+        for s in range(power):
+            num = m % 10
+            numList.append(num)
+            if m == num:
+                break
+            m = m // 10
+
+        sun = 0
+        for num in numList:
+            sun += num ** power
+        if n == sun:
             print(n)
 
 
@@ -957,4 +974,5 @@ def run():
 
 
 if __name__ == '__main__':
-    run()
+    # run()
+    narcissistic_number()
