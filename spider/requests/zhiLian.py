@@ -36,17 +36,16 @@ def start():
         while 1:
             if i == 1:
                 url = "https://fe-api.zhaopin.com/c/i/sou?" \
-                      "pageSize=90&" \
-                      "cityId=%s&" \
-                      "workExperience=-1&" \
-                      "education=-1&" \
-                      "companyType=-1&" \
-                      "employmentType=-1&" \
-                      "jobWelfareTag=-1&" \
-                      "kw=Python&" \
-                      "kt=3&" \
-                      "_v=0.74799541&" \
-                      "x-zp-page-request-id=d139e6630673447883c07668887982c5-1552701595756-581927" % c
+                    "pageSize=90&" \
+                    "cityId=%s&" \
+                    "workExperience=-1&" \
+                    "education=-1&" \
+                    "companyType=-1&" \
+                    "employmentType=-1&" \
+                    "jobWelfareTag=-1&" \
+                    "kw=python&kt=3&" \
+                    "_v=0.76683156" \
+                    "&x-zp-page-request-id=a174ff7f80d84f239dbd52e74c8fb9b2-1555297781242-875582" % c
             else:
                 url = "https://fe-api.zhaopin.com/c/i/sou?" \
                       "start=%d&" \
