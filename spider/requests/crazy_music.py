@@ -8,24 +8,28 @@ class Music:
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Encoding": "gzip, deflate",
         "Accept-Language": "zh-CN,zh;q=0.9",
-        "Content-Length": "71",
+        "Connection": "keep-alive",
+        "Content-Length": "39",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        "Cookie": "UM_distinctid=169e72a4d7d48-0b215cb425d991-6313363-144000-169e72a4d7e7e5; CNZZDATA1261550119=1707531591-1554358633-%7C1554358633; Hm_lvt_bfc6c23974fbad0bbfed25f88a973fb0=1554361503; Hm_lpvt_bfc6c23974fbad0bbfed25f88a973fb0=1554361503",
+        "Cookie": "UM_distinctid=169e72a4d7d48-0b215cb425d991-6313363-144000-169e72a4d7e7e5; CNZZDATA1261550119=1707531591-1554358633-%7C1555377416; Hm_lvt_bfc6c23974fbad0bbfed25f88a973fb0=1554361503,1555380217; Hm_lpvt_bfc6c23974fbad0bbfed25f88a973fb0=1555381511",
         "Host": "music.ifkdy.com",
-        "Origin": "http://music.ifkdy.com",
-        "Proxy-Connection": "keep-alive",
-        "Referer": "http://music.ifkdy.com/?name=%E6%B0%B4%E6%9C%88%E6%B4%9E%E5%A4%A9&type=kuwo",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36",
-        "X-Requested-With": "XMLHttpRequest"
+        "Origin": "http",
+        "Referer": "http",
+        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1",
+        "X-Requested-With": "XMLHttpRequest",
+    }
+    h = {
+        "Accept-Encoding": "identity;q=1, *;q=0",
+        "Referer": "",
+        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1",
     }
 
-    proxy = {
-        'HTTPS': '111.177.176.106:9999'
-    }
-
-    def __init__(self, kw, t):
+    def __init__(self, kw, t, path=None):
+        if path is None:
+            path = r"D:\Anubis\Music"
         self.keyWord = kw
         self.station = t
+        self.path = path
 
     def agent(self):
         """
@@ -46,16 +50,33 @@ class Music:
         }
         return data
 
-    def request_data(self):
-        data = requests.post(self.host, proxies=self.proxy, headers=self.agent(), data=self.form_data()).json()
+    def request_data(self, data=None):
+        if data is None:
+            data = self.form_data()
+        data = requests.post(self.host, headers=self.agent(), data=data).json()
         return data
 
-    def down_load(self):
-        data = self.request_data()["data"]
+    def down_load(self, page=1):
+        data = self.form_data()
+        data["page"] = page
+        data = self.request_data(data)["data"]
         for music in data:
-            music_content = requests.get(music["url"]).content
-            with open("D:\Anubis\Music\多情剑客无情剑\%s.mp3" % music["title"], "wb")as f:
+            self.h["Referer"] = music["url"]
+            music_content = requests.get(music["url"], headers=self.h).content
+            with open("%s\%s.mp3" % (self.path, music["title"]), "wb")as f:
                 f.write(music_content)
+
+            print(music["title"], "下载完成")
+
+    def down_all(self):
+        for p in range(10):
+            self.down_load(p)
+
+
+def headder(h):
+    for i in h.split("\n"):
+        j = i.split(":")
+        print('"{}":"{}",'.format(j[0], j[1]))
 
 
 if __name__ == '__main__':
@@ -72,6 +93,5 @@ if __name__ == '__main__':
         "荔枝": "lizhi",
         "喜马拉雅": "ximalaya"
     }
-    dd = Music("美人吟", "netease")
-    d = dd.request_data()
-    print(d)
+    dd = Music("麦振鸿", "netease", "D:\Anubis\Music\麦振鸿")
+    dd.down_all()
