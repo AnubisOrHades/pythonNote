@@ -1,4 +1,16 @@
 from Example.Android.command import *
+import json
+
+
+def import_data(path='nikki.json'):
+    """
+    获取json数据
+    :param path: json文件地址
+    :return: json数据
+    """
+    with open(path, 'r', encoding='UTF-8')as f:
+        json_data = json.loads(f.read())
+    return json_data["data"]
 
 
 def in_game():
@@ -428,9 +440,4 @@ def run():
 
 if __name__ == '__main__':
     wem = ""
-    run()
-    # collocation = ["莹缀彩结", "欢愉魔法", "萌宠之心", "彩夜星光", "舞动梦想·华丽", "吉祥花结",
-    #                "冠蓝鸦", "彩虹奶霜", "暖心相伴", "绮梦星光", "暖心玩偶·头", "雷克斯暴龙",
-    #                "镂空小礼袖", "梦幻之辉", "瑰丽人生", "恢宏时代"]
-    # # change_clothes(collocation)
-    # task()
+    # run()
