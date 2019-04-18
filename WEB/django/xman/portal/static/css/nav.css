@@ -1,0 +1,163 @@
+body{
+		margin: 0;
+		padding:0;
+	}	
+
+	.nav_container{
+		font-family: 微软雅黑;
+		background: #fff;
+		padding: 10px;
+		margin:10px auto;
+        overflow: hidden;
+	}
+
+	.nav_container .menu{
+		width: 180px;
+		margin-left: 0px;
+		float: left;
+		border-right: 1px solid #aaa;
+	}
+/*position 菜单背景图标*/
+	.positionIicon{
+		display: inline block;
+		width: 32px;
+		height: 32px;
+		margin: 0px 4px;
+		float: left;
+		margin-right: 10px;
+	}
+/*menu图标*/
+
+
+	.nav_container .menu h3{
+		font-size: 20px;
+		cursor: pointer;
+	}
+    .nav_container .menu ul{
+        display: none;
+    }
+	.nav_container .menu ul li{
+		height: 28px;
+		line-height: 28px;
+	}
+
+	.nav_container .menu ul li a:hover{
+		background: #9FB6CD;
+		border-radius: 14px;
+		-webkit-border-radius: 14px;
+		-moz-border-radius: 14px;
+		-moz-border-radius:14px;
+		color:#fff;
+	
+	}
+
+	ul{
+		list-style: none;
+	}
+
+	a{
+		text-decoration: none;
+		color: #000;
+		font-size: 14px;
+		/*display: block; 超链接会换行，所以注释掉*/
+		width: 90px;
+		height: 26px;
+		padding-left: 50px;
+	}
+
+	.nav_container .menu .selected{
+		background: #ccc;
+		border-radius: 14px;
+	}
+
+
+
+	.nav_container .content{
+		margin-top: 15px;
+		width: 80%;
+		margin-left: 220px;
+	}
+
+	.nav_container .content .get-menu{
+		margin-left: -50px;
+	}
+
+	.nav_container .content .get-menu a{
+		display: inline-block;
+		font-size: 15px;
+	    height: 40px;
+	}
+
+	.nav_container .content .get-menu a:last-child{
+		margin-left: -8px;
+		color: #7D9EC0;
+	}
+
+	.nav_container .content .get-menu span{
+		display: inline-block;
+	    height: 40px;
+	    margin-left: -110px;
+	}
+
+	.nav_container .content .menu1 .tab {
+		display: none;
+	}
+
+	.nav_container .content .menu1 .active{
+		display: block;
+	}
+
+	.nav_container .content .menu1 .tab p{
+		font-size: 14px;
+		line-height: 20px;
+		color: rgba(0,0,0,1);
+        word-break:break-all;
+	}
+
+	.nav_container .content .menu1 .tab .tt{
+		font-size: 14px;
+		font-weight: bold;
+
+	}
+/*第二个菜单下的文档内容*/
+	.nav_container .content .menu2 .tab {
+		display: none;
+	}
+
+	.nav_container .content .menu2 .active{
+		display: block;
+	}
+
+	.nav_container .content .menu2 .tab p{
+		font-size: 14px;
+		line-height: 20px;
+		color: rgba(0,0,0,0.8);
+        word-break:break-all;
+	}
+
+	.nav_container .content .menu2 .tab .tt{
+		font-size: 14px;
+		font-weight: bold;
+
+	}
+/*第三个菜单下的文档内容*/
+	.nav_container .content .menu3 .tab {
+		display: none;
+	}
+
+	.nav_container .content .menu3 .active{
+		display: block;
+	}
+
+	.nav_container .content .menu3 .tab p{
+		font-size: 14px;
+		line-height: 20px;
+		color: rgba(0,0,0,0.8);
+        word-break:break-all;
+	}
+
+	.nav_container .content .menu3 .tab .tt{
+		font-size: 13px;
+		font-weight: bold;
+
+	}

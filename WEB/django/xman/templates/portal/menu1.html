@@ -1,0 +1,156 @@
+<div class="menu1 menu_tab">
+                                <div  id="tab1" class="tab active">
+				<table class="table table-bordered">
+   <thead>
+      <tr>
+         <th>日期</th>
+         <th>设备总数</th>
+         <th>故障总数</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td>今天</td>
+         <td>990</td>
+         <td>560001</td>
+      </tr>
+      <tr>
+         <td>昨天</td>
+         <td>980</td>
+         <td>4003</td>
+      </tr>
+   </tbody>
+</table>
+                                </div>
+                                <div id="tab2" class="tab">
+<!--<a href="/addHost/"><button type="button" class="btn btn-info" style="display:inline-block;">添加主机</button></a>-->
+<form action="">
+<a class="btn btn-info theme-host-modify" style="height:100%;" href="javascript:;">添加主机</a></td>
+<!-- <a href="/addHost/" style="display:inline-block;padding-left:0px;"><button type="button" class="btn btn-info" style="display:inline-block;">添加主机</button></a>-->
+    <button style="float:right;">搜索</button>
+    <input type="text" id="txt1" onkeyup="showHint(this.value)" name="word" style="float:right;">
+</form>
+                                <table class="table table-bordered">
+<!--   <caption>主机列表</caption> -->
+	<br/>
+   <thead>
+      <tr>
+         <th>名称</th>
+         <th>IP</th>
+         <th>角色</th>
+         <th>机房</th>
+         <th>机架</th>
+         <th>状态</th>
+         <th>操作</th>
+      </tr>
+   </thead>
+   <tbody id="txtHint">
+        {% for item in hosts %}
+        <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.ip}}</td>
+                <td>{{item.role}}</td>
+                <td>{{item.idc_id}}</td>
+                <td>{{item.rack}}</td>
+		{% ifequal item.status 0 %}
+                <td style="color:red;">未初始化</td>
+		{% else %}			
+		<td>{{item.status}}</td>
+		{% endifequal %}
+		<td><a class="btn btn-primary btn-large theme-host-modify" href="/modify?t=host&id={{item.id}}&name={{item.name}}&isp={{item.company}}&ip={{item.ip}}&role={{item.role}}&rack={{item.rack}}">修改</a>&nbsp;&nbsp;<a class="btn btn-primary btn-large theme-host-delete" href="/delete?t=host&id={{item.id}}&name={{item.name}}&isp={{item.company}}">删除</a></td>
+        </tr>
+        {% endfor %}
+   </tbody>
+</table>
+<a href="#" style="float:right;padding-left:20px;">下一页</a>
+<a href="#" style="float:right;padding-left:20px;">第一页</a>
+<a href="#" style="float:right;padding-left:20px;">上一页</a>
+                                </div>
+
+                                <div  id="tab3" class="tab">
+				<form action="/search/" method="get">
+<a class="btn btn-warning theme-maintance-modify" style="height:100%;" href="javascript:;">添加故障</a></td>
+    <input type="submit" value="搜索" style="float:right;">
+    <input type="text" name="word" style="float:right;">
+</form>
+				<table class="table table-bordered">
+				  <br/>
+   <thead>
+      <tr>
+         <th>标题</th>
+         <th>IP</th>
+         <th>信息</th>
+      </tr>
+   </thead>
+   <tbody>
+	{% for item in maintances %}
+        <tr>
+	<td>{{item.title}}</td>
+                <td>{{item.ip}}</td>
+                <td>{{item.msg}}</td>
+        </tr>
+	{% endfor %}
+   </tbody>
+</table>
+				<!--AJAX 异步提交表单-->
+                                </div>
+
+			 <div  id="tab4" class="tab">
+			<div class="alert alert-info">所有客户端请求列表</div>
+                                <table class="table table-bordered">
+                                  <br/>
+   <thead>
+      <tr>
+         <th>主机名</th>
+         <th>IP</th>
+         <th>操作</th>
+         <th>状态</th>
+      </tr>
+   </thead>
+   <tbody>
+        {% for item in maintances %}
+        <tr>
+        <td>{{item.title}}</td>
+                <td>{{item.ip}}</td>
+                <td>{{item.msg}}</td>
+        </tr>
+        {% endfor %}
+   </tbody>
+</table>
+                                <!--AJAX 异步提交表单-->
+                                </div>
+
+
+                        </div>
+<div class="theme-popover-maintance">
+     <div class="theme-poptit-maintance">
+          <a href="javascript:;" title="关闭" class="close">关闭</a>
+          <h3>&nbsp;&nbsp;&nbsp;&nbsp;新增故障维护信息</h3>
+     </div>
+     <div class="theme-popbod dform">
+           <form class="theme-signin" name="loginform" action="/check_action/" method="post">{% csrf_token %}
+                     设备名称&nbsp;<input class="ipt" type="text" name="name" value="请输入设备名称" size="40" style="width:280px;height:36px;"/><br/><br/>
+                     设备&nbsp;I&nbsp;&nbsp;P&nbsp;&nbsp;<input class="ipt" type="text" name="log" value="请输入设备IP" size="40" style="width:280px;height:36px;"/><br/><br/>
+                     故障信息&nbsp;<input class="ipt" type="text" name="log" value="请输入故障信息" size="40" style="width:360px;height:36px;"/><br/><br/><br/>
+		     <input class="ipt" type="hidden" name="iname" value="add-maintance" style="width:280px;height:36px;"/>
+                     <input class="l_btn l_btn-primary" type="submit" name="submit" value=" 确认提交 " style="width:80px;height:36px;"/>
+           </form>
+     </div>
+</div>
+<div class="theme-popover-host">
+     <div class="theme-poptit-host">
+          <a href="javascript:;" title="关闭" class="close">关闭</a>
+          <h3>&nbsp;&nbsp;&nbsp;&nbsp;新增设备信息</h3>
+     </div>
+     <div class="theme-popbod dform">
+           <form class="theme-signin" name="loginform" action="/check_action/" method="post" id="host_add">{% csrf_token %}
+                     设备名称&nbsp;<input class="ipt" type="text" name="host-name" id="host_name" value="请输入设备名称" size="40" style="width:280px;height:36px;"/><br/><br/>
+                     设备&nbsp;I&nbsp;&nbsp;P&nbsp;&nbsp;<input class="ipt" type="text" name="host-ip" id="host_ip" value="请输入设备IP" size="40" style="width:280px;height:36px;"/><br/><br/>
+                     角色名称&nbsp;<input class="ipt" type="text" name="host-role" value="请输入角色名称" size="40" style="width:360px;height:36px;"/><br/><br/>
+                     机架编号&nbsp;<input class="ipt" type="text" name="host-modNum" value="请输入机架编号" size="40" style="width:360px;height:36px;"/><br/><br/>
+                     联系人员&nbsp;<input class="ipt" type="text" name="host-contact" value="请输入联系人员" size="40" style="width:360px;height:36px;"/><br/><br/>
+                     <input class="ipt" type="hidden" name="iname" value="add-host" style="width:280px;height:36px;"/>
+                     <input class="l_btn l_btn-primary" type="submit" name="submit" value=" 确认提交 " style="width:80px;height:36px;"/>
+           </form>
+     </div>
+</div>

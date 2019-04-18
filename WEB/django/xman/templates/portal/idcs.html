@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}首页{% endblock %}
+{% block content %}
+{% include "nav.html" %}
+<div class="content1">  
+<table class="table table-bordered">
+   <caption>搜索</caption>
+   <thead>
+      <tr>
+         <th>机房名称</th>
+         <th>{{id}}</th>
+         <th>操作</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td>SJHL-BJ</td>
+         <td>世纪互联-北京</td>
+         <td><a href="/hosts_modify"><span class="glyphicon glyphicon-pencil" style="color: rgb(0, 0, 0);"> </span></a> <a href="/hosts_delete"><span class="glyphicon glyphicon-remove" style="color: rgb(0, 0, 0);"></span></a></td>
+      </tr>
+      <tr>
+         <td>TT-BJ</td>
+         <td>铁通-北京</td>
+         <td><a href="/hosts_modify"><span class="glyphicon glyphicon-pencil" style="color: rgb(0, 0, 0);"> </span></a> <a href="/hosts_delete"><span class="glyphicon glyphicon-remove" style="color: rgb(0, 0, 0);"></span></a></td>
+      </tr>
+   </tbody>
+</table>
+    </div>
+{% endblock %}

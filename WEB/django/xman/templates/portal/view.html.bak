@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %} {{title}} {% endblock %}
+{% block content %}
+{% include "nav.html" %}
+<div class="content1">  
+	   	<!-- 总览信息 -->
+	    <div class="panel panel-default">
+	<p>Hi~ {{ request.path }}</p>
+	   	<div class="panel-heading">概况总览</div>
+		   <table class="table">
+		     <!--  <tr><th>产品</th><th>指数 </th></tr>-->
+		      <tr><td>设备总数</td><td>200</td></tr>
+		      <tr><td>机房总数</td><td>400</td></tr>
+		   </table>
+		</div>
+    
+    
+    <!--  -->
+    </div>
+{% endblock %}

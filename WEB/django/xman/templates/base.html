@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <!--   <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>-->
+	<script src="/static/js/jquery.min.js"></script>
+        <!-- Bootstrap core CSS -->
+    <!-- Custom styles for this template -->
+<!--<link href="http://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">-->
+	<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/static/css/nav.css" rel="stylesheet">
+	<link href="/static/css/style.css" rel="stylesheet">
+	<link href="/static/css/lanrenzhijia.css" rel="stylesheet">
+	<link href="/static/css/addJs.css" rel="stylesheet">
+	<script type="text/javascript" src="/static/js/nav.js"></script>
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+              <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<script type="text/javascript">
+function showHint(str)
+{
+var xmlhttp;
+if (str.length==0)
+  { 
+  document.getElementById("txtHint").innerHTML="";
+  return;
+  }
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+    }
+  }
+xmlhttp.open("GET","/search?host="+str,true);
+xmlhttp.send();
+}
+
+</script>
+<script>
+jQuery(document).ready(function($) {
+	$('.theme-hostname-init').click(function(){
+		$('.theme-popover-mask').fadeIn(100);
+		$('.theme-popover').slideDown(200);
+	})
+	$('.theme-poptit .close').click(function(){
+		$('.theme-popover-mask').fadeOut(100);
+		$('.theme-popover').slideUp(200);
+	})
+
+})
+</script>
+<script>
+jQuery(document).ready(function($) {
+        $('.theme-host-modify').click(function(){
+                $('.theme-popover-host-mask').fadeIn(100);
+                $('.theme-popover-host').slideDown(200);
+        })
+        $('.theme-poptit-host .close').click(function(){
+                $('.theme-popover-host-mask').fadeOut(100);
+                $('.theme-popover-host').slideUp(200);
+        })
+
+})
+</script>
+<script>
+jQuery(document).ready(function($) {
+        $('.theme-isp-modify').click(function(){
+                $('.theme-popover-isp-mask').fadeIn(100);
+                $('.theme-popover-isp').slideDown(200);
+        })
+        $('.theme-poptit-isp .close').click(function(){
+                $('.theme-popover-isp-mask').fadeOut(100);
+                $('.theme-popover-isp').slideUp(200);
+        })
+
+})
+</script>
+<script>
+jQuery(document).ready(function($) {
+        $('.theme-idc-modify').click(function(){
+                $('.theme-popover-idc-mask').fadeIn(100);
+                $('.theme-popover-idc').slideDown(200);
+        })
+        $('.theme-poptit-idc .close').click(function(){
+                $('.theme-popover-idc-mask').fadeOut(100);
+                $('.theme-popover-idc').slideUp(200);
+        })
+
+})
+</script>
+<script>
+jQuery(document).ready(function($) {
+        $('.theme-maintance-modify').click(function(){
+                $('.theme-popover-maintance-mask').fadeIn(100);
+                $('.theme-popover-maintance').slideDown(200);
+        })
+        $('.theme-poptit-maintance .close').click(function(){
+                $('.theme-popover-maintance-mask').fadeOut(100);
+                $('.theme-popover-maintance').slideUp(200);
+        })
+
+})
+</script>
+<script>
+jQuery(document).ready(function($) {
+        $('.theme-idc-delete').click(function(){
+                $('.theme-popover-idc-delete-mask').fadeIn(100);
+                $('.theme-popover-idc-delete').slideDown(200);
+        })
+        $('.theme-poptit-idc-delete .close').click(function(){
+                $('.theme-popover-idc-delete-mask').fadeOut(100);
+                $('.theme-popover-idc-delete').slideUp(200);
+        })
+
+})
+</script>
+
+	<title>{% block title %}{% endblock %}</title>
+    {% block extrahead %}{% endblock %}
+</head>
+<body>
+
+		{% block content %}{% endblock %}
+</body>
+</html
+>

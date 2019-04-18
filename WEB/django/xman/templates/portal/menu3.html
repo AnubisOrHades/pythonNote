@@ -1,0 +1,99 @@
+ <div class="menu3 menu_tab">
+                                <div id="tab-3-1" class="tab">
+				<div class="alert alert-info">SaltStack 批量执行</div>
+				<form class="form-horizontal" role="form">
+   <div class="form-group" style="height:40px;">
+      <label for="firstname" class="col-sm-2 control-label">设备名称</label>
+      <div class="col-sm-10">
+         <input type="text" class="form-control" id="firstname"
+            placeholder="请输入设备名称" style="width:50%;">
+      </div>
+   </div>
+   <div class="form-group" style="height:40px;">
+      <label for="lastname" class="col-sm-2 control-label">执行命令</label>
+      <div class="col-sm-10">
+         <input type="text" class="form-control" id="lastname"
+            placeholder="请输入执行命令" style="width:50%;">
+      </div>
+   </div>
+   <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+         <a href="/Salt/addTask"><button type="submit" class="btn btn-default">提交</button></a>
+      </div>
+   </div>
+</form>
+                                </div>
+                                <div  id="tab-3-2" class="tab"><div class="alert alert-info">未授权客户端请求列表</div>
+				<table class="table table-bordered">
+<br/>
+   <thead>
+      <tr>
+         <th>时间</th>
+         <th>主机名</th>
+         <th>IP</th>
+         <th>型号</th>
+         <th>操作</th>
+      </tr>
+   </thead>
+    <tbody id="txtHint"> 
+        {% for item in unhosts_list %}
+        <tr>
+                <td>{{item.insert_time}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.ip}}</td>
+                <td>{{item.modelNum}}</td>
+                <!-- <td><a class="btn btn-primary btn-large theme-hostname-init" href="javascript:;">初始化</a></td> -->
+                <td><a class="btn btn-primary btn-large theme-hostname-init" href="/modify?t=initHost&name={{item.name}}&ip={{item.ip}}&modelNum={{item.modelNum}}">初始化</a></td>
+        </tr>
+        {% endfor %}
+   </tbody>
+</table>
+				</div>
+                                <div  id="tab-3-3" class="tab"><div class="alert alert-info">操作状态</div>
+				 <table class="table table-bordered">
+<br/>
+   <thead>
+      <tr>
+         <th>时间</th>
+         <th>操作人</th>
+         <th>命令</th>
+         <th>状态</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+      </tr>
+   </tbody>
+</table>
+
+
+				</div>
+                                <div  id="tab-3-4" class="tab">
+                                <div  id="tab-3-5" class="tab">table5</div>
+                                <div  id="tab-3-6" class="tab">table6</div>
+                                <div  id="tab-3-7" class="tab">table7</div>
+                                        <p class="tt">1. 。。。</p>
+                                <div  id="tab-3-8"  class="tab">table8</div>
+                                <div  id="tab-3-9" class="tab">table9</div>
+                                <div  id="tab-3-10" class="tab">table10</div>
+                                <div  id="tab-3-11"  class="tab">table11</div>
+                                <div  id="tab-3-12" class="tab">table12</div>
+                        </div>
+
+
+
+
+<div class="theme-popover">
+     <div class="theme-poptit">
+          <a href="javascript:;" title="关闭" class="close">关闭</a>
+          <h3>&nbsp;&nbsp;&nbsp;&nbsp;初始化主机名</h3>
+     </div>
+     <div class="theme-popbod dform">
+           <form class="theme-signin" name="hostnameinitForm" action="/check_action/" method="post">{% csrf_token %}
+                     主机名称 <input class="ipt" type="text" name="name" value="请输入新主机名" size="40" style="width:280px;height:36px;"/><br/><br/><br/>
+                     备注信息 <input class="ipt" type="text" name="info" value="备注信息" size="40" style="width:280px;height:36px;"/><br/><br/><br/>
+		     <input class="ipt" type="hidden" name="iname" value="init-host" style="width:280px;height:36px;"/>
+                     <input class="l_btn l_btn-primary" type="submit" name="submit" value=" 一键确认 " style="width:80px;height:36px;"/>
+           </form>
+     </div>
+</div>

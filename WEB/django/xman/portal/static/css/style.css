@@ -1,0 +1,8 @@
+/*header导航*/
+.navbar-header {
+	width:100%;
+	height:66px;
+	border-radius:8px;
+	background-color: #005B95;
+	padding: 12px;
+}
