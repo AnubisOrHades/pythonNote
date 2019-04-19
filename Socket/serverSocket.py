@@ -191,12 +191,6 @@ class Sever:
 
 
 if __name__ == '__main__':
-    # hostname = socket.gethostname()
-    # # 获取本机IP
-    # host = socket.gethostbyname(hostname)
-    # host = "172.26.205.127"
-    port = 9999
-    zhongZhiFu = '/r/n'
     print("主机端口：%s:%d\t\n终止符：%s" % (HOST, PORT, STOPWORD))
     shan = Sever(HOST, PORT, stopMark=STOPWORD)
     shan.run()

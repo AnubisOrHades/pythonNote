@@ -1,6 +1,6 @@
 import json
 
-zhongZhiFu = '/r/n'
+from settings import *
 
 
 class Message:
@@ -36,4 +36,4 @@ class Message:
             del data["uniqueId"]
             del data["notificationHolder"]
 
-        return (json.dumps(data) + zhongZhiFu).encode('utf8')
+        return (json.dumps(data) + STOPWORD).encode('utf8')

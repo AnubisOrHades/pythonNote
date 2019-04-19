@@ -8,7 +8,7 @@ class Tel(Client):
     #         online = []
     #         deviceId = self.message.data["id"]
     #         # 创建数据库连接
-    #         tags = MysqlClients()
+    #         tags = MysqlClients(db=DATABASE, p=PASSWORD)
     #         # 获取设备房间Id
     #         roomId = tags.select("product_shanlaidevice", "deviceId", deviceId, key2="deviceRoom_id")
     #         # 获取房间的所有用户Id
