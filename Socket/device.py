@@ -1,6 +1,8 @@
 from socketBase import Client
 from database.myDB import MysqlClients
 
+from settings import *
+
 
 class Device(Client):
     # def __init__(self):
@@ -8,14 +10,14 @@ class Device(Client):
     #     self.dbid = self.get_id()
 
     def get_id(self):
-        tags = MysqlClients(db="testdb", p="111111")
+        tags = MysqlClients(db=DATABASE, p=PASSWORD)
         # 获取设备ID
         d = tags.select("product_shanLaidevice", "deviceId", self.id)
         return d
 
     def linkageOperation(self, cl):
         # 创建数据库连接
-        tags = MysqlClients()
+        tags = MysqlClients(db=DATABASE, p=PASSWORD)
         # 获取设备ID
         d = tags.select("product_shanLaidevice", "deviceId", self.id)
         if len(d) == 0:
@@ -50,7 +52,7 @@ class Device(Client):
         :return:
         """
 
-        tags = MysqlClients()
+        tags = MysqlClients(db=DATABASE, p=PASSWORD)
         # 获取设备详情
         d = tags.select("product_shanLaidevice", "deviceId", self.id)[0]
         print("fangjianxiangqing\n",d)

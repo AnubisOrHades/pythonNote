@@ -3,7 +3,7 @@ import socket
 import sys
 import queue
 
-from mySocket.shanLaiSocket.socketClient import *
+from Socket.shanLaiSocket.socketClient import *
 
 zhongZhiFu=r"/r/t"
 def over(data):

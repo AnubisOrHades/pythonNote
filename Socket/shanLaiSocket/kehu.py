@@ -1,5 +1,6 @@
-import socket,time
+import socket, time
 import sys
+
 #
 # # 创建 socket 对象
 # s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

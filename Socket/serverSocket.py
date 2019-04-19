@@ -1,5 +1,4 @@
 import select
-import socket
 import queue
 import json
 import datetime
@@ -10,7 +9,7 @@ from news import Message
 from socketBase import Client
 from phone import Tel
 from device import Device
-
+from settings import *
 
 class Sever:
     inputs = []  # 所有连接中的socket对象集合
@@ -63,7 +62,7 @@ class Sever:
             # 有新客户端接入
             if s is self.server:
                 conn, client_addr = s.accept()
-                print("new connection from", client_addr)
+                print("新连接来自于：", client_addr)
                 conn.setblocking(0)
                 Sever.inputs.append(conn)  # 将连接对象添加到监控队列
                 Sever.message_queues[conn] = queue.Queue()  # 创建连接消息队列
@@ -192,12 +191,12 @@ class Sever:
 
 
 if __name__ == '__main__':
-    hostname = socket.gethostname()
-    # 获取本机IP
-    host = socket.gethostbyname(hostname)
+    # hostname = socket.gethostname()
+    # # 获取本机IP
+    # host = socket.gethostbyname(hostname)
     # host = "172.26.205.127"
     port = 9999
     zhongZhiFu = '/r/n'
-    print("主机端口：%s:%d\t\n终止符：%s" % (host, port, zhongZhiFu))
-    shan = Sever(host, port, stopMark=zhongZhiFu)
+    print("主机端口：%s:%d\t\n终止符：%s" % (HOST, PORT, STOPWORD))
+    shan = Sever(HOST, PORT, stopMark=STOPWORD)
     shan.run()

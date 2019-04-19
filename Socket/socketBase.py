@@ -1,5 +1,7 @@
 from database.myDB import MysqlClients
 
+from settings import *
+
 
 class Client:
     def __init__(self, sobj, m):
@@ -18,7 +20,7 @@ class Client:
             online = []
             deviceId = self.id
             # 创建数据库连接
-            tags = MysqlClients()
+            tags = MysqlClients(db=DATABASE, p=PASSWORD)
 
             # 获取设备详情
             d = tags.select("product_shanlaidevice", "deviceId", deviceId)[0]

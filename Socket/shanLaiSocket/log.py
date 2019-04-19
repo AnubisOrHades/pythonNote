@@ -45,5 +45,5 @@ if __name__ == '__main__':
     # log.logger.critical('严重')
     # Logger('error.log', level='error').logger.error('error')
     i = datetime.datetime.now()
-    i='%s-%s-%s' % (i.year, i.month, i.day)
+    i = '%s-%s-%s' % (i.year, i.month, i.day)
     print(i)
