@@ -1,4 +1,4 @@
-from Socket.socketBase import Client
+from Socket.ITTS.socketBase import Client
 
 
 class Device(Client):

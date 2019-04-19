@@ -1,6 +1,6 @@
 from Socket.database.myDB import MysqlClients
 
-from Socket.settings import *
+from Socket.ITTS.settings import *
 
 
 class Client:

@@ -1,5 +1,4 @@
-from socketBase import Client
-from database.myDB import MysqlClients
+from Socket.ITTS.socketBase import Client
 
 
 class Tel(Client):

@@ -1,6 +1,6 @@
 import json
 
-from Socket.settings import *
+from Socket.ITTS.settings import *
 
 
 class Message:

@@ -4,12 +4,12 @@ import json
 import datetime
 import time
 
-from Socket.logset import Logger
-from Socket.news import Message
-from Socket.socketBase import Client
-from Socket.phone import Tel
-from Socket.device import Device
-from Socket.settings import *
+from Socket.ITTS.logset import Logger
+from Socket.ITTS.news import Message
+from Socket.ITTS.socketBase import Client
+from Socket.ITTS.phone import Tel
+from Socket.ITTS.device import Device
+from Socket.ITTS.settings import *
 
 
 class Sever:
