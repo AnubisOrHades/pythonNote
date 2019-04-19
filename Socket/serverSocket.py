@@ -4,12 +4,13 @@ import json
 import datetime
 import time
 
-from logset import Logger
-from news import Message
-from socketBase import Client
-from phone import Tel
-from device import Device
-from settings import *
+from Socket.logset import Logger
+from Socket.news import Message
+from Socket.socketBase import Client
+from Socket.phone import Tel
+from Socket.device import Device
+from Socket.settings import *
+
 
 class Sever:
     inputs = []  # 所有连接中的socket对象集合

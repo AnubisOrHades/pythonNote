@@ -1,7 +1,4 @@
-from socketBase import Client
-from database.myDB import MysqlClients
-
-from settings import *
+from Socket.socketBase import Client
 
 
 class Device(Client):
@@ -10,16 +7,14 @@ class Device(Client):
     #     self.dbid = self.get_id()
 
     def get_id(self):
-        tags = MysqlClients(db=DATABASE, p=PASSWORD)
+
         # 获取设备ID
-        d = tags.select("product_shanLaidevice", "deviceId", self.id)
+        d = self.tags.select("product_shanLaidevice", "deviceId", self.id)
         return d
 
     def linkageOperation(self, cl):
-        # 创建数据库连接
-        tags = MysqlClients(db=DATABASE, p=PASSWORD)
         # 获取设备ID
-        d = tags.select("product_shanLaidevice", "deviceId", self.id)
+        d = self.get_id()
         if len(d) == 0:
             self.message.responseResult = "NO"
             self.message.resultCode = "10005"
@@ -27,15 +22,15 @@ class Device(Client):
             # 获取触发码id
             data = ""
             if self.message.data.get("linkPara") is not None:
-                cfmId = tags.select("device_operation_opterationtrigger", "triggerName",
-                                    self.message.data.get("linkPara"), "id")[0][0]
+                cfmId = self.tags.select("device_operation_opterationtrigger", "triggerName",
+                                         self.message.data.get("linkPara"), "id")[0][0]
                 # 获取联动操作
                 print("触发码id:", cfmId)
-                cz = tags.select("device_operation_concern", "device_id", d[0][0])
+                cz = self.tags.select("device_operation_concern", "device_id", d[0][0])
                 for c in cz:
                     if c[4] == cfmId:
-                        caozuo = tags.select("device_operation_deviceOpteration",
-                                             "id", c[3], "opterationName")
+                        caozuo = self.tags.select("device_operation_deviceOpteration",
+                                                  "id", c[3], "opterationName")
                         if len(caozuo) != 0:
                             data = caozuo[0][0]
                             self.socketObj.send(self.message.result(d={"opterationName": data}))
@@ -52,16 +47,15 @@ class Device(Client):
         :return:
         """
 
-        tags = MysqlClients(db=DATABASE, p=PASSWORD)
         # 获取设备详情
-        d = tags.select("product_shanLaidevice", "deviceId", self.id)[0]
-        print("fangjianxiangqing\n",d)
+        d = self.tags.select("product_shanLaidevice", "deviceId", self.id)[0]
+        print("fangjianxiangqing\n", d)
         # 获取房间的所有拥有者
-        db = tags.client()
+        db = self.tags.client()
         cursor = db.cursor()
         try:
             sql = "SELECT userName FROM user_user WHERE id IN " \
-                  "(SELECT user_id FROM user_user_room WHERE room_id=%d)"%d[6]
+                  "(SELECT user_id FROM user_user_room WHERE room_id=%d)" % d[6]
             print(sql)
             cursor.execute(sql)  # 执行sql语句
             results = cursor.fetchall()

@@ -1,6 +1,6 @@
 import json
 
-from settings import *
+from Socket.settings import *
 
 
 class Message:
@@ -20,7 +20,6 @@ class Message:
         self.resultCode = "20000"
 
     def result(self, id=None, act=None, d=None):
-
         data = {
             "id": self.id if id is None else id,
             "action": self.action + "Response" if act is None else act + "Response",
