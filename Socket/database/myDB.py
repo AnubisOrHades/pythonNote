@@ -2,7 +2,7 @@ import pymysql
 
 
 class MysqlClients:
-    def __init__(self, db="wulianwang", h="localhost", u="root", p="mysqlshanlai", port=3306):
+    def __init__(self, db="wulianwang", h="127.0.0.1", u="root", p="mysqlshanlai", port=3306):
         """
         初始化MySQL连接
         :param db: 数据库名字
