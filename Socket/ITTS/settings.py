@@ -30,7 +30,6 @@ def run():
                 PORT = int(line.split()[-1])
             elif "STOPWORD" in line:
                 STOPWORD = line.split()[-1]
-                print(STOPWORD == line.split()[-1])
             elif "DATABASE" in line:
                 DATABASE = line.split()[-1]
             elif "PASSWORD" in line:
@@ -41,14 +40,17 @@ def run():
               (HOST, PORT, STOPWORD, DATABASE, PASSWORD, DBHOST))
     if not os.path.exists("{}/log".format(path)):
         os.mkdir("{}/log".format(path))
+    try:
+        from Socket.database.myDB import MysqlClients
+        tags = MysqlClients(db=DATABASE, h=DBHOST, p=PASSWORD)
+        r = tags.select("product_shanLaiEdition", "editionName", "1.0.0", key2="id")
+    except Exception as e:
+        if e.args[0] == 1045:
+            print("请检查数据库配置")
 
 
 run()
 
 if __name__ == '__main__':
     run()
-    # from Socket.database.myDB import MysqlClients
-    # tags = MysqlClients(db=DATABASE, h=DBHOST, p=PASSWORD)
-    # r = tags.select("product_shanLaiEdition", "editionName", "1.0.0", key2="id")
-    # print(r)
-    # run()
+
