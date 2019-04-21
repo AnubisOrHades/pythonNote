@@ -9,7 +9,7 @@ class Client:
         self.socketObj = sobj
         self.message = m
 
-    tags = MysqlClients(db=DATABASE, p=PASSWORD)
+    tags = MysqlClients(db=DATABASE, h=DBHOST, p=PASSWORD)
 
     def heartbeat(self, cl):
         """

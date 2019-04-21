@@ -192,6 +192,6 @@ class Sever:
 
 
 if __name__ == '__main__':
-    print("主机端口：%s:%d\t\n终止符：%s" % (HOST, PORT, STOPWORD))
+    print("主机端口：{}:{}\t\n终止符：{}" .format(HOST, PORT, STOPWORD))
     shan = Sever(HOST, PORT, stopMark=STOPWORD)
     shan.run()
