@@ -1,6 +1,6 @@
 import json
 
-from Socket.ITTS.settings import *
+from Socket.ITTS.settings import STOPWORD
 
 
 class Message:

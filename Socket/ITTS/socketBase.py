@@ -1,5 +1,4 @@
 from Socket.database.myDB import MysqlClients
-
 from Socket.ITTS.settings import *
 
 
