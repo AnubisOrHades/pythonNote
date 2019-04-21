@@ -77,6 +77,7 @@ class Sever:
                 if data:
                     news += data
                     mowei = data[-4:]
+                    # 如果消息接收完成
                     if mowei == self.stopMark:
                         news = json.loads(news[0:-4])
                         Sever.message_queues[s].put(news)  # 创建连接消息队列
@@ -85,13 +86,12 @@ class Sever:
                         client = Client(s, m)  # 实例化连接对象
                         client.message = news  # 将消息添加进连接
                         Sever.clients[client.id] = client  # 将连接对象添加到连接池
-                        self.logAll.logger.info(
-                            "收到来自[%s]的数据:%s" % (s.getpeername()[0], news))
                         # 如果socket对象不在待处理队列，将其添加到待处理队列
                         if s not in Sever.outputs:
                             # 为了不影响处理与其它客户端的连接 , 这里不立刻返回数据给客户端
                             Sever.outputs.append(s)
                     print("收到来自[%s]的数据:" % s.getpeername()[0], data)
+                    self.logAll.logger.info("收到来自[%s]的数据:%s" % (s.getpeername()[0], news))
 
                 # 如果收不到data代表什么呢? 代表客户端断开了呀
                 else:
@@ -110,6 +110,7 @@ class Sever:
                             errorS = k
                             break
                     del Sever.clients[errorS]
+                    self.logError.logger.error("[%s]连接异常" % s.getpeername()[0])
 
     def dispose_recive(self, writeable):
         for s in writeable:
@@ -120,18 +121,20 @@ class Sever:
                 if m.action == "heartbeat":
                     cl = Client(s, m)
                     cl.heartbeat(Sever.clients)
+                    self.logAll.logger.info("已处理[%s]的数据心跳" % s.getpeername()[0])
                 else:
                     if m.type == "tel":
                         if m.action == "deviceOperation":
                             cl = Tel(s, m)
                             cl.deviceOperation(Sever.clients)
+                            self.logAll.logger.info("已处理[%s]的手机发硬件" % s.getpeername()[0])
                     elif m.type == "device":
                         cl = Device(s, m)
                         if m.action == "linkageOperation01":
                             cl.linkageOperation(Sever.clients)
+                            self.logAll.logger.info("已处理[%s]的联动测试" % s.getpeername()[0])
                         else:
                             cl.zhuanfa(Sever.clients)
-
 
                     elif m.action == "sendNews":
                         self.sendMessage(s, next_msg)
@@ -157,6 +160,7 @@ class Sever:
                     break
             del Sever.clients[errorS]
             time.sleep(0.1)
+            self.logError.logger.error("[%s]连接异常" % s.getpeername()[0])
 
     def sendMessage(self, obj, m):
         """

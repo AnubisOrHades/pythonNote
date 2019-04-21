@@ -39,7 +39,7 @@ class Tel(Client):
     #     pass
 
     def deviceOperation(self, cl):
-        sbId=self.message.data.get("id")
+        sbId = self.message.data.get("id")
         d = cl.get(sbId)
         if d is None:
             self.message.responseResult = "NO"
