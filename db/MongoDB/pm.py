@@ -1,41 +1,76 @@
 from pymongo import MongoClient
 
-# 连接MongoDB
-conn = MongoClient("localhost", 27017)
-# 选择要使用的数据库，如果没有则创建
-db = conn.MG
-# 选择要使用的数据表，如果没有则创建
-poetry = db.test
 
-# 获取mongodb所有数据库名
-dblist = conn.list_database_names()
-# print(dblist)
+class MongodbClient:
+    def __init__(self, db=None, table=None, host="localhost", port=27017):
+        """
+        MongodbClient初始化函数
+        :param db: 数据库名
+        :param table: 数据库表名
+        :param host: 数据库地址（ip），默认为 localhost
+        :param port: 数据库端口，默认为 27017
+        """
+        self.host = host
+        self.port = port
+        self.db = db
+        self.table = table
+        self.content = self.get_content()
 
-# 获取数据库中的所有数据表
-collist = db.list_collection_names()
-# print(collist)
+    def get_content(self):
+        """
+        获取连接对象
+        :return: 获取连接对象
+        """
+        conn = MongoClient(self.host, self.port)
+        db = conn[self.db]
+        table = db[self.table]
+        return table
 
-# 添加数据
-# poetry.save({"时间":"2019/3/16"," 行为":"添加数据"})
-# poetry.insert_one({"时间":"2019/3/16"," 行为":"添加数据"})
+    def select(self, n=None, **kwargs):
+        """
+        查询数据库
+        :param n: 要返回数据的数量
+        :param kwargs: 查询条件
+        :return: 查询结果
+        """
+        if n == None:
+            return self.content.find(kwargs)
+        else:
+            return self.content.find(kwargs).limit(n)
 
-# 添加多条数据
-# poetry.insert_many([{"时间": "2019/3/16", " 行为": "添加数据"}, {"时间": "2019/3/16", " 行为": "添加多条数据"}])
+    def save(self, *args, **kwargs):
+        """
+        存储数据
+        :param args: 多条数据
+        :param kwargs: 一条数据
+        :return:
+        """
+        print(list(args))
+        if len(args) != 0 and len(kwargs.keys()) != 0:
+            self.content.insert_many(list(args))
+            self.content.save(kwargs)
 
-# 查询一条数据
-# x = poetry.find_one()
-# print(x)
+        elif len(args) == 0:
+            self.content.save(kwargs)
+        elif len(kwargs.keys()) == 0:
+            self.content.insert_many(list(args))
+        else:
+            print("没有要存入的数据")
+        print(list(args))
 
-# 查询所有数据
-# for x in poetry.find():
-#     print(x)
+    def delete(self, **kwargs):
+        if self.select(**kwargs).count() > 0:
+            data = self.select(**kwargs)[0]
+            self.content.delete_one(data)
+        else:
+            print("没有数据")
 
-# 条件查询
-# mydoc = poetry.find({" 行为": "添加数据"})
-# for x in mydoc:
-#     print(x)
 
-# 返回指定条数记录
-myresult = poetry.find().limit(3)
-for x in myresult:
-    print(x)
+if __name__ == '__main__':
+    m = MongodbClient(db="MG", table="test")
+    # for i in m.select(时间="2019/4/16", 行为="添加数据"):
+    #     print(i)
+    # m.save(时间="2019/4/16", 行为="添加数据")
+    # m.save({"时间": "2019/4/16", "行为": "添加数据"}, {"时间": "2019/4/16", "行为": "添加多条数据"})
+
+    m.delete(行为="添加数据")
