@@ -28,7 +28,7 @@ class MysqlClients:
         )
         return db
 
-    def select(self, tableName, key, value, key2="*"):
+    def select(self, tableName, key=None, value=None, key2="*"):
         """
 
         :param tableName: 数据库表名
@@ -40,15 +40,18 @@ class MysqlClients:
         db = self.client()
         cursor = db.cursor()
         try:
-            if type(value) == int:
-                pass
+            if key is None and value is None:
+                sql = "SELECT {} FROM {}.{}".format(key2, self.db, tableName)
             else:
-                if value.isdigit():
+                if type(value) == int:
                     pass
                 else:
-                    value = "\'%s\'" % value
+                    if value.isdigit():
+                        pass
+                    else:
+                        value = "\'%s\'" % value
 
-            sql = "SELECT {} FROM {}.{} WHERE {}={}".format(key2, self.db, tableName, key, value)
+                sql = "SELECT {} FROM {}.{} WHERE {}={}".format(key2, self.db, tableName, key, value)
             print("查询：", sql)
             cursor.execute(sql)  # 执行sql语句
             results = cursor.fetchall()  # 获取查询的所有记录
@@ -124,10 +127,16 @@ class MysqlClients:
 
 
 if __name__ == '__main__':
-    testdb = MysqlClients()
+    testdb = MysqlClients(db="code", h="localhost", p="111111")
     # sql = "SELECT * FROM product_shanlaidevice"
     # sql = "SELECT * FROM testdb.user_user_room WHERE room_id=5"
-    r = testdb.select("product_shanLaiEdition", "editionName", "1.0.0", key2="id")
+    r = testdb.select("arc_match_table", "id", "6")
+    # r = testdb.select("arc_library_table_name", "id", "6")
     # testdb.insert(tableName="product_shanlaiedition", editionName="1.2.34", beizhu="eiofwoie")
     # testdb.updata("product_shanlaidevice", "deviceEdition_id", 14, "id", 1)
-    print(r)
+    # print(r[0][-1])
+    code = r[0][-1]
+    lis=[i for i in code]
+    print(len(code))
+
+    print(lis)
