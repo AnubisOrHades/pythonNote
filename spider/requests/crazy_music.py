@@ -59,8 +59,8 @@ class Music:
     def down_load(self, page=1):
         data = self.form_data()
         data["page"] = page
-        data = self.request_data(data)["data"]
-        for music in data:
+        result = self.request_data(data)["data"]
+        for music in result:
             self.h["Referer"] = music["url"]
             music_content = requests.get(music["url"], headers=self.h).content
             with open("%s\%s.mp3" % (self.path, music["title"]), "wb")as f:
