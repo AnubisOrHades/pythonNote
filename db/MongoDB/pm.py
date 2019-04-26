@@ -33,7 +33,7 @@ class MongodbClient:
         :param kwargs: 查询条件
         :return: 查询结果
         """
-        if n == None:
+        if n is None:
             return self.content.find(kwargs)
         else:
             return self.content.find(kwargs).limit(n)

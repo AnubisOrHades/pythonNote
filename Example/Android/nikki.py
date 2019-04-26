@@ -161,10 +161,10 @@ def sports():
     click(170, 540)
     # 登台
     for i in range(4):
-        click(550, 1570)
-        click(870, 1600)
+        click(550, 1570, 3)
+        click(870, 1600, 2)
         free()
-        time.sleep(1.5)
+        time.sleep(1)
         free()
 
     # 返回主页
@@ -404,7 +404,7 @@ def run():
     # 进入游戏
     # in_game()
     # 任务    25
-    # my_task()
+    my_task()
     print("已过6关")
     # 迷之屋   15
     house_of_mystery()
@@ -440,4 +440,5 @@ def run():
 
 if __name__ == '__main__':
     wem = ""
-    # run()
+    run()
+    # change_clothes(import_data()["2-5"])
