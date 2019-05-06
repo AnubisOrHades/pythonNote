@@ -204,7 +204,7 @@ def mouse_move(coordinates):
 
 def key_input(key=''):
     if key in VK_CODE:
-        print(key)
+        print("KEY:{}".format(key))
         win32api.keybd_event(VK_CODE[key], 0, 0, 0)
         win32api.keybd_event(VK_CODE[key], 0, win32con.KEYEVENTF_KEYUP, 0)
         time.sleep(0.01)
