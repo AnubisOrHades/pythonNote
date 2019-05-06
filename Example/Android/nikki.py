@@ -342,7 +342,7 @@ def change_clothes(collocation):
     :return:
     """
     click(800, 1400)
-    click(60, 880)
+    click(60, 880, 3)
     # 清空搭配
     click(680, 1580)
     # 切换adbkeyboard输入法
@@ -441,4 +441,4 @@ def run():
 if __name__ == '__main__':
     wem = ""
     run()
-    # change_clothes(import_data()["2-5"])
+    # change_clothes(import_data()["2-7"])

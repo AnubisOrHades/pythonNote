@@ -13,11 +13,23 @@ def devices():
 
 
 def home():
+    """
+    home键
+    :return:
+    """
     os.system("adb shell input keyevent 3")
 
 
 def break_adb():
+    """
+    返回键
+    :return:
+    """
     os.system("adb shell input keyevent 4")
+
+
+def menu():
+    os.system("adb shell input keyevent 82")
 
 
 def click(x, y, t=1):
@@ -33,7 +45,7 @@ def click(x, y, t=1):
     time.sleep(t)
 
 
-def long_press(x, y, t=2):
+def long_press(x, y, t=1):
     """
     长按
     :param x: x坐标
@@ -43,22 +55,23 @@ def long_press(x, y, t=2):
     """
     code = "adb shell input swipe {} {} {} {} 1200".format(x, y, x, y)
     os.system(code)
-    time.sleep(2)
+    time.sleep(t)
 
 
-def slide(x, y, x1, y1, t=2):
+def slide(x, y, x1, y1, s, t=1):
     """
     滑动
     :param x:开始x坐标
     :param y:开始y坐标
     :param x1:结束x坐标
     :param y1:结束y坐标
+    :param s:滑动时间 毫秒
     :param t: 休眠时间
     :return:
     """
-    code = "adb shell input swipe {} {} {} {} 300".format(x, y, x1, y1)
+    code = "adb shell input swipe {} {} {} {} {}".format(x, y, x1, y1, s)
     os.system(code)
-    time.sleep(2)
+    time.sleep(t)
 
 
 def input_abd(text):
@@ -68,12 +81,12 @@ def input_abd(text):
     :return:
     """
     # 切换adbkeyboard输入法
-    # os.system("adb shell ime set com.android.adbkeyboard/.AdbIME")
+    os.system("adb shell ime set com.android.adbkeyboard/.AdbIME")
 
     code = "adb shell am broadcast -a ADB_INPUT_TEXT --es msg {}".format(text)
     os.system(code)
     # 切换搜狗输入法
-    # os.system("adb shell ime set com.sohu.inputmethod.sogou/.SogouIME")
+    os.system("adb shell ime set com.sohu.inputmethod.sogou/.SogouIME")
     time.sleep(1)
 
 
