@@ -49,8 +49,6 @@ def run():
             print("请检查数据库配置")
 
 
-run()
-
 if __name__ == '__main__':
     run()
 
