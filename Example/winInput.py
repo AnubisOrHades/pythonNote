@@ -169,7 +169,7 @@ def get_mouse_point():
 def mouse_click(coordinates=None):
     """
     鼠标单击
-    :param coordinates: 单击位置，如果不为空则，先移动鼠标到指定坐标，然后单击
+    :param coordinates: 单击位置，坐标（x,y）,如果不为空则，先移动鼠标到指定坐标，然后单击
     :return:
     """
     if coordinates is not None:
@@ -204,7 +204,7 @@ def mouse_move(coordinates):
 
 def key_input(key=''):
     if key in VK_CODE:
-        print("KEY:{}".format(key))
+        # print("KEY:{}".format(key))
         win32api.keybd_event(VK_CODE[key], 0, 0, 0)
         win32api.keybd_event(VK_CODE[key], 0, win32con.KEYEVENTF_KEYUP, 0)
         time.sleep(0.01)
