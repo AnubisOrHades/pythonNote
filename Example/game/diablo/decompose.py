@@ -1,6 +1,6 @@
 import os
 
-from Example.winInput import *
+from Example.win.winInput import *
 
 LEFT_TOP = ""
 RIGHT_BOTTOM = ""
