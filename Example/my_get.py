@@ -18,6 +18,21 @@ def down_load(local_path, url):
         print(e, "\n", url)
 
 
+def down_b_video(path=None, url=None, start=1, end=9):
+    """
+    下载B站视频
+    :param path: 本地保存地址
+    :param url: 下载链接
+    :param start: 开始位置
+    :param end: 结束位置
+    :return:
+    """
+    task_lis = ["{}{}".format(url[:-1], i) for i in range(start, end)]
+    print(task_lis)
+    for task in task_lis:
+        down_load(path, task)
+
+
 def run(local_path, url):
     t = type(url)
     if t is list:
@@ -36,7 +51,7 @@ def run(local_path, url):
 
 
 if __name__ == '__main__':
-    path = r"D:\Anubis\Video\Vue_黑马"
-    urlList = ["https://www.bilibili.com/video/av36650577/?p={}".format(i) for i in range(146, 204)]
-    url = 'https://www.bilibili.com/video/av46495287?p=2'
-    run(path, urlList)
+    path = r"D:\Anubis\Video\数据分析"
+    url = "https://www.bilibili.com/video/av22571713/?p=1"
+    # run(path, urlList)
+    down_b_video(path, url, start=33,end=92)
