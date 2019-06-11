@@ -1,4 +1,4 @@
-from Example.winInput import *
+from Example.win.winInput import *
 
 
 def run(data):

@@ -3,7 +3,7 @@
 1.开局进入第二营地
 2.开启小秘境
 """
-from Example.winInput import *
+from Example.win.winInput import *
 
 MIX_X = 1535
 MIX_Y = 863
