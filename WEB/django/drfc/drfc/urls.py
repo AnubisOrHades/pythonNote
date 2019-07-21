@@ -32,4 +32,5 @@ urlpatterns = [
     # url("^api/", include(router.urls)),
     url("^api/", include("User.urls")),
     url(r'api/text/', include_docs_urls(title="初号")),  # 接口文档
+    path('san/', include('social_django.urls', namespace='oauth2_provider')),
 ]

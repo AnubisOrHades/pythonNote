@@ -1,4 +1,5 @@
 import os
+import threading
 
 tasks = [
     {"code": "jupyter notebook", "program": "jupyter notebook"},
@@ -14,6 +15,11 @@ tasks = [
 ]
 
 
+def execute(num):
+    print(tasks[int(num) - 1])
+    os.system(tasks[int(num) - 1]["code"])
+
+
 def run():
     for index, task in enumerate(tasks):
         print("{}\t{}".format(index + 1, task["program"]), end="\t\t")
@@ -26,8 +32,10 @@ def run():
         if choice == "b":
             break
         try:
-            print(tasks[int(choice)-1])
-            os.system(tasks[int(choice)-1]["code"])
+            # execute(choice)
+            t = threading.Thread(target=execute, args=choice)
+            t.start()
+            t.join()
         except:
             print("序号输入错误")
         else:
@@ -41,3 +49,4 @@ def test(*args):
 
 if __name__ == '__main__':
     run()
+    # threading.Thread(target=execute, args="1").start()

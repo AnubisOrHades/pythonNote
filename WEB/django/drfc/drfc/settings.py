@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import datetime
+
 # import djcelery
 
 
@@ -48,6 +49,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'oauth2_provider',
+    'social_django',
     # 'djcelery',
 ]
 
@@ -64,6 +67,22 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'drfc.urls'
 
+# TEMPLATES = [
+#     {
+#         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+#         'DIRS': [],
+#         'APP_DIRS': True,
+#         'OPTIONS': {
+#             'context_processors': [
+#                 'django.template.context_processors.debug',
+#                 'django.template.context_processors.request',
+#                 'django.contrib.auth.context_processors.auth',
+#                 'django.contrib.messages.context_processors.messages',
+#             ],
+#         },
+#     },
+# ]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -75,16 +94,15 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'drfc.wsgi.application'
-
-# Database
-# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -144,3 +162,19 @@ CELERY_BROKER_URL = 'redis://127.0.0.1:6379/1'  # Broker配置，使用Redis作�
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/1'  # BACKEND配置，这里使用redis
 
 CELERY_RESULT_SERIALIZER = 'json'  # 结果序列化方案
+
+# 身份验证后端
+AUTHENTICATION_BACKENDS = [
+    'users.utils.UsernameMobileAuthBackend',
+
+    'social_core.backends.weibo.WeiboOAuth2',  # 微博
+    'social_core.backends.qq.QQOAuth2',  # qq
+    'social_core.backends.weixin.WeixinOAuth2',  # 微信
+    'django.contrib.auth.backends.ModelBackend'  # 指定django的modelbackend 类
+]
+
+SOCIAL_AUTH_WEIBO_KEY = ''
+SOCIAL_AUTH_WEIBO_SECRET = ''
+
+# 登录成功后跳转页面
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/login/'
