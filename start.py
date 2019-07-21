@@ -1,4 +1,3 @@
-from Example.win.winInput import *
 import os
 
 tasks = [
@@ -42,38 +41,3 @@ def test(*args):
 
 if __name__ == '__main__':
     run()
-    # key_input("ctrl","backspace")
-    # win32api.keybd_event(VK_CODE["ctrl"], 0, win32con.KEYEVENTF_EXTENDEDKEY, 0)
-    # win32api.keybd_event(VK_CODE["backspace"], 0, win32con.KEYEVENTF_EXTENDEDKEY, 0)
-    # win32api.keybd_event(VK_CODE["backspace"], 0, win32con.KEYEVENTF_KEYUP, 0)
-    # win32api.keybd_event(VK_CODE["ctrl"], 0, win32con.KEYEVENTF_KEYUP, 0)
-
-    # [3, 226, 25, 1, 2, 1, 1, 0, 1, 3, 0, 0, 255]
-    # s = b'\x03\xe2\x19\x01\x02\x01\x01\x00\x01\x03\x00\x00\xff'
-    # result = [i for i in s]
-    # for i in s:
-    #     result.append(i)
-
-    from pymongo import MongoClient
-
-    # conn = MongoClient("localhost", 27017)
-    # db = conn["SpiderData"]
-    # table = db["zhilian"]
-    # keys = ["_id", "applyType", "updateDate", "refreshMulscore", "g_sort", "endDate", "city", "showLicence", "saleType",
-    #         "positionURL", "g_weight", "industry", "welfare", "salary", "SOU_POSITION_ID", "duplicated", "geo", "score",
-    #         "number", "vipLevel", "recruitCount", "workingExp", "companyScore", "tagIntHighend", "company", "seo",
-    #         "jobType", "g_query", "resumeCount", "createDate", "jobName", "manualScore", "eduLevel", "companyLogo",
-    #         "futureJob", "emplType", "g_source", "SOU_POSITION_SOURCE_TYPE", "recentAndTotal", "tags", "businessArea",
-    #         "positionLabel", "expandCount", "jobTag", "feedbackRation", "interview", "selected", "applied", "collected",
-    #         "isShow", "timeState", "rate", ]
-    # result = []
-    # for i in table.find():
-    #     lis = ["None"] * 52
-    #     for k in i:
-    #         # print('"{}",'.format(k), end="\t")
-    #
-    #         if k in keys:
-    #             lis[keys.index(k)] = i[k]
-    #     result.append(lis)
-    # for i in result:
-    #     print(i[0])
