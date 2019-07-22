@@ -202,12 +202,22 @@ def mouse_move(coordinates):
     time.sleep(0.05)
 
 
-def key_input(key=''):
-    if key in VK_CODE:
-        # print("KEY:{}".format(key))
-        win32api.keybd_event(VK_CODE[key], 0, 0, 0)
-        win32api.keybd_event(VK_CODE[key], 0, win32con.KEYEVENTF_KEYUP, 0)
-        time.sleep(0.01)
+def key_input(*args):
+    if len(args) == 1:
+        if args[0] in VK_CODE:
+            # print("KEY:{}".format(key))
+            win32api.keybd_event(VK_CODE[args[0]], 0, 0, 0)
+            win32api.keybd_event(VK_CODE[args[0]], 0, win32con.KEYEVENTF_KEYUP, 0)
+            time.sleep(0.01)
+        else:
+            print("按键错误！！！")
+    else:
+        for key in args:
+            win32api.keybd_event(VK_CODE[key], 0, win32con.KEYEVENTF_EXTENDEDKEY, 0)
+
+        for key in args:
+            win32api.keybd_event(VK_CODE[key], 0, win32con.KEYEVENTF_KEYUP, 0)
+
 
 
 if __name__ == "__main__":
