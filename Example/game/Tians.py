@@ -20,7 +20,7 @@ if __name__ == '__main__':
     time.sleep(4)
     code_list = ["trojan horse for sale", "atm of erebus", "junk food night"]
     # key_input("caps_lock")
-    for i in range(30):
+    for i in range(10):
         run(code_list)
         # code = "atm of erebus"
     #         # key_input("enter")
