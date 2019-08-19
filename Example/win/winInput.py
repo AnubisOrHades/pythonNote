@@ -212,12 +212,21 @@ def key_input(*args):
         else:
             print("按键错误！！！")
     else:
-        for key in args:
-            win32api.keybd_event(VK_CODE[key], 0, win32con.KEYEVENTF_EXTENDEDKEY, 0)
-
-        for key in args:
-            win32api.keybd_event(VK_CODE[key], 0, win32con.KEYEVENTF_KEYUP, 0)
-
+        win32api.keybd_event(VK_CODE[args[0]], 0, 0, 0)
+        time.sleep(0.5)
+        win32api.keybd_event(VK_CODE[args[1]], 0, 0, 0)
+        time.sleep(0.5)
+        win32api.keybd_event(VK_CODE[args[0]], 0, win32con.KEYEVENTF_KEYUP, 0)
+        time.sleep(0.5)
+        win32api.keybd_event(VK_CODE[args[1]], 0, win32con.KEYEVENTF_KEYUP, 0)
+        time.sleep(0.5)
+        # for key in args:
+        #     win32api.keybd_event(VK_CODE[key], 0, win32con.KEYEVENTF_EXTENDEDKEY, 0)
+        #     time.sleep(0.5)
+        #
+        # for key in args:
+        #     win32api.keybd_event(VK_CODE[key], 0, win32con.KEYEVENTF_KEYUP, 0)
+        #     time.sleep(0.5)
 
 
 if __name__ == "__main__":
