@@ -13,6 +13,19 @@ def import_data(path='nikki.json'):
     return json_data["data"]
 
 
+def get_clothes_set():
+    """
+    获取衣服集合
+    :return:
+    """
+    clothes_set = set()
+    for i in import_data():
+        for c in import_data()[i]:
+            clothes_set.add(c)
+    print("共有衣服：{}件".format(clothes_set.__len__()))
+    return clothes_set
+
+
 def in_game():
     """
     进入游戏
@@ -438,7 +451,24 @@ def run():
     print("奇迹暖暖自动化脚本，已运行结束")
 
 
+def chose(clothes):
+    for c in clothes.split(">"):
+        print(c.split("(")[0])
+        click(680, 1000)
+        # 输入衣服
+        click(500, 820)
+        input_abd(c.split("(")[0])
+        click(500, 300)
+        time.sleep(1)
+        if len(clothes.split(">")) == 1:
+            click(900, 170)
+
+
 if __name__ == '__main__':
+    # CLOTHES = get_clothes_set()
     wem = ""
-    run()
-    # change_clothes(import_data()["2-7"])
+    # run()
+    # change_clothes(import_data()["3-6"])
+
+    C = """提线木偶"""
+    chose(C)
