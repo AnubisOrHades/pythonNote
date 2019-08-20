@@ -92,14 +92,14 @@ def union():
     """
     # 进入
     click(800, 730)
-    # 委托
-    click(550, 1150)
-    # 进行任务
-    click(890, 1200)
-    click(450, 1400)
-    free()
-    time.sleep(2)
-    free()
+    # # 委托
+    # click(550, 1150)
+    # # 进行任务
+    # click(890, 1200)
+    # click(450, 1400)
+    # free()
+    # time.sleep(2)
+    # free()
 
     click(90, 310)
     # 图书馆
@@ -125,8 +125,9 @@ def dream():
     for i in range(3):
         click(540, y)
         click(720, 1100)
-        free()
+        click(500,600)
         y += 300
+        time.sleep(1)
     free()
 
     # 浮梦岛
@@ -146,20 +147,25 @@ def garden():
     :return:
     """
     # 进入
-    slide(800, 1100, 200, 1100)
+    slide(800, 1100, 200, 1100,300)
     click(850, 1500)
-    # 过关
-    click(90, 1660)
-    click(600, 970)
-    free()
-    time.sleep(1)
-    free()
+    for i in range(2):
+        # 过关
+        click(90, 1650)
+        click(600, 970)
+        free()
+        time.sleep(1)
+        free()
 
-    click(970, 1660)
-    click(600, 970)
-    free()
-    time.sleep(1)
-    free()
+        click(970, 1660)
+        click(600, 970)
+        free()
+        time.sleep(1)
+        free()
+        if i==0:
+            click(980,1750)
+            click(900, 900)
+
 
     # 返回主页
     go_break()
@@ -173,7 +179,7 @@ def sports():
     # 进入
     click(170, 540)
     # 登台
-    for i in range(4):
+    for i in range(5):
         click(550, 1570, 3)
         click(870, 1600, 2)
         free()
@@ -466,9 +472,12 @@ def chose(clothes):
 
 if __name__ == '__main__':
     # CLOTHES = get_clothes_set()
+    sports()
+    # click(980, 1750)
+    # click(900, 900)
     wem = ""
     # run()
     # change_clothes(import_data()["3-6"])
 
     C = """提线木偶"""
-    chose(C)
+    # chose(C)
