@@ -5,6 +5,7 @@ import time
 
 VK_CODE = {
     'backspace': 0x08,
+    "windows": 0x5B,
     'tab': 0x09,
     'clear': 0x0C,
     'enter': 0x0D,
@@ -227,6 +228,20 @@ def key_input(*args):
         # for key in args:
         #     win32api.keybd_event(VK_CODE[key], 0, win32con.KEYEVENTF_KEYUP, 0)
         #     time.sleep(0.5)
+
+
+def input_txt(txt):
+    """
+    输入文本
+    :param txt: 文本
+    :return:
+    """
+    print(txt)
+    for s in txt:
+        if s.isspace():
+            key_input("space")
+        else:
+            key_input(s)
 
 
 if __name__ == "__main__":
