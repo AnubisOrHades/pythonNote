@@ -1,0 +1,236 @@
+{
+  "name": "command-code",
+  "version": "1.0.0",
+  "dependencies": {
+    "pip": [
+      [
+        "pip --version",
+        "显示版本和路径"
+      ],
+      [
+        "pip --help",
+        "获取帮助"
+      ],
+      [
+        "pip install -U pip",
+        "升级 pip"
+      ],
+      [
+        "pip install  package_name",
+        "安装名为 package_name 的包，最新版本"
+      ],
+      [
+        "pip install  package_name==1.0.4",
+        "安装名为 package_name 的包，==后为指定版本"
+      ],
+      [
+        "pip install  package_name>=1.0.4",
+        "安装名为 package_name 的包，安装最小版本"
+      ],
+      [
+        "pip install --upgrade SomePackage",
+        "升级包"
+      ],
+      [
+        "pip uninstall SomePackage",
+        "卸载包"
+      ],
+      [
+        "pip search SomePackage",
+        "搜索包"
+      ],
+      [
+        "pip show SomePackage",
+        "查看指定包的信息"
+      ],
+      [
+        "pip show -f SomePackage",
+        "查看指定包的详细信息"
+      ],
+      [
+        "pip list",
+        "列出已安装的包"
+      ],
+      [
+        "pip list -o",
+        "查看可升级的包"
+      ],
+      [
+        "pip freeze",
+        "查看依赖项"
+      ],
+      [
+        "pip freeze > <目录>/requirements.txt",
+        "导出依赖项为requirements.txt"
+      ],
+      [
+        "pip install -r <目录>/requirements.txt",
+        "安装依赖项"
+      ],
+      [
+        "pip install <目录>/<文件名>",
+        "安装本地安装包"
+      ]
+    ],
+    "Anaconda": [
+      [
+        "conda --version",
+        "查看Anaconda版本信息"
+      ],
+      [
+        "conda update conda",
+        "更新conda至最新版本"
+      ],
+      [
+        "conda --help or conda -h",
+        " 查看conda帮助信息"
+      ],
+      [
+        "conda create --name <env_name> <package_names>",
+        "创建新环境",
+        " conda create --name python2 python=2.7 ，即创建一个名为“python2”的环境，环境中安装版本为2.7的python。"
+      ],
+      [
+        "source activate <env_name>",
+        "切换环境-Linux 或 macOS"
+      ],
+      [
+        "activate <env_name>",
+        "切换环境-Windows"
+      ],
+      [
+        "source deactivate",
+        "退出环境至root- Linux 或 macOS"
+      ],
+      [
+        "deactivate",
+        "退出环境至root--Windows"
+      ],
+      [
+        "conda info --envs or conda info -e or conda env list",
+        "显示已创建环境"
+      ],
+      [
+        "conda create --name <new_env_name> --clone <copied_env_name>",
+        "复制环境",
+        "conda create --name py2 --clone python2 ，即为克隆名为“python2”的环境，克隆后的新环境名为“py2”。此时，环境中将同时存在“python2”和“py2”环境，且两个环境的配置相同。"
+      ],
+      [
+        "conda remove --name <env_name> --all",
+        "删除环境"
+      ],
+      [
+        "conda search --full-name <package_full_name>",
+        "查找可供安装的包版本-精确查找",
+        " conda search --full-name python 即查找全名为“python”的包有哪些版本可供安装。"
+      ],
+      [
+        "conda search <text>",
+        "查找可供安装的包版本-模糊查找",
+        "conda search py 即查找含有“py”字段的包，有哪些版本可供安装。\n"
+      ],
+      [
+        "conda list",
+        "获取当前环境中已安装的包信息"
+      ],
+      [
+        "conda install --name <env_name> <package_name>",
+        "在指定环境中安装包",
+        "conda install --name python2 pandas 即在名为“python2”的环境中安装pandas包。"
+      ],
+      [
+        "conda install <package_name>",
+        "在当前环境中安装包",
+        "conda install pandas 即在当前环境中安装pandas包。\n"
+      ]
+    ],
+    "Django": [
+      [
+        "python manage.py startproject （name）",
+        "创建项目"
+      ],
+      [
+        "python manage.py startapp （name）",
+        "创建App"
+      ],
+      [
+        "python manage.py createsuperuser",
+        "创建超级管理员"
+      ],
+      [
+        "python manage.py makemigrations",
+        "生成数据库迁移文件"
+      ],
+      [
+        "python manage.py migrate",
+        "执行数据库执行文件"
+      ]
+    ],
+    "": [
+      [
+        "",
+        ""
+      ],
+      [
+        "",
+        ""
+      ],
+      [
+        "",
+        ""
+      ],
+      [
+        "",
+        ""
+      ],
+      [
+        "",
+        ""
+      ],
+      [
+        "",
+        ""
+      ],
+      [
+        "",
+        ""
+      ],
+      [
+        "",
+        ""
+      ],
+      [
+        "",
+        ""
+      ],
+      [
+        "",
+        ""
+      ],
+      [
+        "",
+        ""
+      ],
+      [
+        "",
+        ""
+      ],
+      [
+        "",
+        ""
+      ],
+      [
+        "",
+        ""
+      ],
+      [
+        "",
+        ""
+      ],
+      [
+        "",
+        ""
+      ]
+    ]
+  }
+}
