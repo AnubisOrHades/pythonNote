@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>photo</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <style type="text/css">
+        html body {
+            font-size: 16px;
+            font-family: "微软雅黑";
+            color: #FFFFFF;
+        }
+
+        i {
+            color: #FFFFFF;
+            font-size: 12px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        /*清除浮动*/
+        .clearfix:before,
+        .clearfix:after {
+            content: " ";
+            display: table;
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+        .clearfix {
+            *zoom: 1;
+            /*IE/7/6*/
+        }
+
+        /*定位居中*/
+        .middle {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        .s-side {
+            min-width: 200px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 15%;
+            bottom: 0;
+            background-color: #292929;
+            box-shadow: 0px 0px 10px #313131;
+            padding: 10px;
+        }
+
+        .s-side .s-firstItem i {
+            font-size: 20px;
+        }
+
+        .s-side .s-firstItem span {
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 20px;
+            text-shadow: 0 0 5px #EEEEEE;
+        }
+
+        .s-side .first {
+            padding: 10px 0px;
+            border-bottom: 1px solid #424242;
+        }
+
+        .s-side .d-firstNav span {
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .s-side .d-firstNav i.fr {
+            font-size: 25px;
+        }
+
+        .s-side .s-secondNav,
+        .s-side .s-secondItem {
+            margin-left: 50px;
+            margin-top: 10px;
+        }
+
+        .s-secondNav:hover, .d-firstNav:hover {
+            background-color: #3D3D3D;
+            cursor: pointer
+        }
+
+        .s-side .d-secondDrop {
+            margin-left: 100px;
+            margin-top: 10px;
+        }
+
+        .iconRotate {
+            transform: rotate(90deg);
+            transition: transform 0.5s;
+        }
+
+        .s-firstDrop,
+        .s-secondDrop {
+            display: none;
+        }
+
+        .title {
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="s-side">
+        <ul>
+            <!--这部分是导航栏信息。-->
+            <li class="s-firstItem first">
+                <a href="#">
+                    <i class="fa fa-home"></i>
+                    <span>菜单</span>
+                </a>
+            </li>
+
+            <li class="first" v-for="(n,index) in sites" :key="index">
+                <div class="d-firstNav s-firstNav clearfix">
+                    <i class="fa fa-bars"></i>
+                    <span>{{ n.name }}</span>
+                    <i class="fa fa-caret-right fr "></i>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <h3 class="title">fe</h3>
+        <div>ff</div>
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            sites: [
+                {name: 'Runoob'},
+                {name: 'Google'},
+                {name: 'Taobao'}
+            ]
+        }
+    })
+</script>
+</body>
+</html>
