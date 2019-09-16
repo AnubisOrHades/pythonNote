@@ -45,7 +45,6 @@ class MongodbClient:
         :param kwargs: 一条数据
         :return:
         """
-        print(list(args))
         if len(args) != 0 and len(kwargs.keys()) != 0:
             self.content.insert_many(list(args))
             self.content.save(kwargs)
@@ -56,7 +55,6 @@ class MongodbClient:
             self.content.insert_many(list(args))
         else:
             print("没有要存入的数据")
-        print(list(args))
 
     def delete(self, **kwargs):
         if self.select(**kwargs).count() > 0:
@@ -64,6 +62,9 @@ class MongodbClient:
             self.content.delete_one(data)
         else:
             print("没有数据")
+
+    def update(self, where, newdata):
+        self.content.update(where, {"$set": newdata})
 
 
 if __name__ == '__main__':
