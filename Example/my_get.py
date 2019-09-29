@@ -2,16 +2,17 @@ import sys
 from you_get import common as you_get  # 导入you-get库
 
 
-def down_load(local_path, url):
+def down_load(local_path, url, name=None):
     """
     使用you_get下载视频到本地
     :param local_path: 保存地址
+    :param name:文件名
     :param url: 视频连接
     :return:
     """
     try:
         print("开始".center(120, "="))
-        sys.argv = ['you-get', '-o', local_path, url]  # sys传递参数执行下载，就像在命令行一样
+        sys.argv = ['you-get', '-o', local_path, "-O", name, url]  # sys传递参数执行下载，就像在命令行一样
         you_get.main()
         print("下载完成".center(120, "="))
     except Exception as e:
