@@ -19,16 +19,16 @@ def run():
     # my_task()
     print("已过6关")
     # 迷之屋   15
-    # house_of_mystery()
+    house_of_mystery()
     print("迷之屋已完成")
     # 搭配师联盟 20
     union()
     print("搭配师联盟任务已完成")
     # 织梦人学会 10
-    # dream()
+    dream()
     print("织梦人学会任务已完成")
     # 御园琼芳
-    # garden()
+    garden()
     print("御园琼芳任务已完成")
     # 搭配竞技场 10
     sports()
@@ -42,6 +42,8 @@ def run():
     # 当评委   15
     judges()
     print("评委任务已完成")
+    cabana()
+    print("小屋任务已完成")
     # 领取奖励  10
     # reward()
     print("今日奖励以领取完毕")
@@ -52,6 +54,5 @@ def run():
 
 if __name__ == '__main__':
     # judges()
+    # dream()
     run()
-    # garden()
-    # click(970, 1750)
