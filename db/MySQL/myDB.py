@@ -2,18 +2,18 @@ import pymysql
 
 
 class MysqlClients:
-    def __init__(self, db="wulianwang", h="127.0.0.1", u="root", p="mysqlshanlai", port=3306):
+    def __init__(self, db="wulianwang", host="127.0.0.1", user="root", password="mysqlshanlai", port=3306):
         """
         初始化MySQL连接
         :param db: 数据库名字
-        :param h: 数据库地址
-        :param u: 数据库用户名
-        :param p: 数据库用户密码
+        :param host: 数据库地址
+        :param user: 数据库用户名
+        :param password: 数据库用户密码
         :param port: 数据库端口
         """
-        self.host = h
-        self.user = u
-        self.password = p
+        self.host = host
+        self.user = user
+        self.password = password
         self.db = db
         self.port = port
 
@@ -125,6 +125,31 @@ class MysqlClients:
         finally:
             db.close()
 
+    def execute(self, sql):
+        """
+        执行SQL语句
+        :param sql: SQL语句
+        :return: 结果
+        """
+        db = self.client()
+        try:
+            results = None
+            cursor = db.cursor()
+            cursor.execute(sql)  # 执行sql语句
+            if "INSERT" in sql or "UPDATE" in sql or "insert" in sql or "update" in sql:
+                db.commit()
+            else:
+                results = cursor.fetchall()
+            pass
+        except Exception as e:
+            print("Error:{}".format(e))
+        else:
+            return results
+            pass
+        finally:
+            db.close()
+            pass
+
 
 if __name__ == '__main__':
     testdb = MysqlClients(db="code", h="localhost", p="111111")
@@ -136,7 +161,7 @@ if __name__ == '__main__':
     # testdb.updata("product_shanlaidevice", "deviceEdition_id", 14, "id", 1)
     # print(r[0][-1])
     code = r[0][-1]
-    lis=[i for i in code]
+    lis = [i for i in code]
     print(len(code))
 
     print(lis)
