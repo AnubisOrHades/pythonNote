@@ -47,7 +47,7 @@ def run():
     start_xy = [int(LEFT_TOP[0] + box_x / 2), int(LEFT_TOP[1] + box_y / 2)]
     print("({},{})\n{}".format(box_x, box_y, start_xy))
     print("start".center(100, "="))
-    time.sleep(3)
+    # time.sleep(3)
     decompose(start_xy, box_x, box_y)
 
 
