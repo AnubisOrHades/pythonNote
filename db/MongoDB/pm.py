@@ -68,10 +68,20 @@ class MongodbClient:
 
 
 if __name__ == '__main__':
-    m = MongodbClient(db="MG", table="test")
+    m = MongodbClient(db="dy_data", table="comment_count", host="192.168.1.165")
+    n = MongodbClient(db="dy_data", table="comment_set", host="192.168.1.165")
     # for i in m.select(时间="2019/4/16", 行为="添加数据"):
     #     print(i)
     # m.save(时间="2019/4/16", 行为="添加数据")
     # m.save({"时间": "2019/4/16", "行为": "添加数据"}, {"时间": "2019/4/16", "行为": "添加多条数据"})
-
-    m.delete(行为="添加数据")
+    comment_list = []
+    for i in m.select():
+        comment_list.append(i["comment"])
+        print(i["comment"])
+    new = list(set(comment_list))
+    for c in new:
+        print(c)
+        count = m.select(comment=c).count()
+        n.save({"comment": c, "count": count})
+    print(comment_list.__len__())
+    print(new.__len__())
