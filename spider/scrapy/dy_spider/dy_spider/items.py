@@ -9,6 +9,18 @@ import scrapy
 
 
 class DySpiderItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
+    id = scrapy.Field()
+    text = scrapy.Field()
+    videos = scrapy.Field()
+    images = scrapy.Field()
+    comments = scrapy.Field()
+    down = scrapy.Field()
+    update = scrapy.Field()
+    down_comment = scrapy.Field()
     pass
+
+
+if __name__ == '__main__':
+    ss = "id,text,videos,images,comments,down,update,down_comment"
+    for i in ss.split(","):
+        print(i + "= scrapy.Field()")

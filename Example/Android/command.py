@@ -97,6 +97,9 @@ if __name__ == '__main__':
     # 切换adbkeyboard输入法
     # os.system("adb shell ime set com.android.adbkeyboard/.AdbIME")
     # 切换搜狗输入法
-    # os.system("adb shell ime set com.sohu.inputmethod.sogou/.SogouIME")
+    os.system("adb shell ime set com.sohu.inputmethod.sogou/.SogouIME")
     # os.system("adb shell am broadcast -a ADB_INPUT_TEXT --es msg '上海-悠悠'")
     devices()
+    # slide(500,200,500,1000,0.5)
+    # click(500,500)
+    # os.system("adb shell input swipe 500 200 500 1000")

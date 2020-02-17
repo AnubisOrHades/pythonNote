@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,render_template
 from flask_restful import reqparse, abort, Api, Resource
 
 app = Flask(__name__)
@@ -55,7 +55,7 @@ class TodoList(Resource):
 
 @app.route("/")
 def home():
-    return "<a href='http://127.0.0.1:5000/todos'>http://127.0.0.1:5000/todos</a><br><a href='http://127.0.0.1:5000/todos/todo1'>http://127.0.0.1:5000/todos/todo1</a>"
+    return render_template("index.html")
 
 
 api.add_resource(TodoList, '/todos')
