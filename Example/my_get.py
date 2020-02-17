@@ -31,7 +31,10 @@ def down_b_video(path=None, url=None, start=1, end=9):
     task_lis = ["{}{}".format(url[:-1], i) for i in range(start, end)]
     print(task_lis)
     for task in task_lis:
-        down_load(path, task)
+        try:
+            down_load(path, task)
+        except Exception as e:
+            print("Error:{}".format(e))
 
 
 def run(local_path, url):
@@ -52,7 +55,8 @@ def run(local_path, url):
 
 
 if __name__ == '__main__':
-    path = r"D:\Anubis\Video\数据分析"
-    url = "https://www.bilibili.com/video/av22571713/?p=1"
+    path = r"D:\Anubis\Video\linux"
+    url = "https://www.bilibili.com/video/av18156598?p=2"
     # run(path, urlList)
-    down_b_video(path, url, start=33,end=92)
+    down_load(path,url)
+    # down_b_video(path, url, start=1, end=107)

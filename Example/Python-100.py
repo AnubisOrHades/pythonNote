@@ -140,6 +140,25 @@ def_dict = [
 ]
 
 
+def zhishu(num):
+    """
+    判断一个数字是否是数字
+    :param num:
+    :return:
+    """
+    try:
+        for i in range(2, int(num**0.5)+1):
+            if num % i == 0:
+                print(i)
+                print("{}不是质数".format(num))
+                return False
+        else:
+            print("{}是质数".format(num))
+            return True
+    except Exception as e:
+        print(e)
+
+
 def find_thief():
     for thief in ['a', 'b', 'c', 'd']:
         sum = (thief != 'a') + (thief == 'c') + (thief == 'd') + (thief != 'd')
