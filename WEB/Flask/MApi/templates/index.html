@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的主页</title>
+    <script src="/static/js/vue.min.js"></script>
+    <script src="/static/js/jQuery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li><a href="http://127.0.0.1:5000/todos">list</a></li>
+        <li><a href="http://127.0.0.1:5000/todos/todo1">todo1</a></li>
+    </ul>
+
+</div>
+<script src="/static/js/autoload.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            nav_list: [
+                {"user": ""}
+            ]
+        }
+    })
+</script>
+</body>
+</html>

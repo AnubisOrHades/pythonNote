@@ -1,0 +1,30 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+POST http://127.0.0.1:5000/register
+
+{"mobile_phone":"567hu9","psd":"skfe435"}
+
+###
+#12306
+GET https://kyfw.12306.cn/otn/leftTicket/query?leftTicketDTO.train_date=2019-12-27&leftTicketDTO.from_station=SHH&leftTicketDTO.to_station=ZZF&purpose_codes=ADULT
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9
+Cache-Control: no-cache
+Connection: keep-alive
+Cookie: JSESSIONID=AFED6F94EBEE53BBE4D43F5128B13D95; tk=KuhG222kgkk3C0dH5wYDuXdXbKRh9PtjmI7bGlzfLlUbcw2w0; BIGipServerpassport=937951498.50215.0000; route=495c805987d0f5c8c84b14f60212447d; BIGipServerotn=468713994.50210.0000; BIGipServerpool_passport=384631306.50215.0000; _jc_save_fromStation=%u4E0A%u6D77%2CSHH; _jc_save_toStation=%u90D1%u5DDE%2CZZF; RAIL_EXPIRATION=1575787856562; RAIL_DEVICEID=lS0x1G503ZyyCqreAlFtt0zVwoP-eeyNziD1g7AsHylw5q3NHQifo-tfbwq9kzb68WeV_s2F5K7z83zJdEkYZeQoU8kZR56ENQKcSrRa3y2EfqADLlnuQddFuHsdbcHe_lNYKCh9P_KDwLvmqWvjq_vNDaDtQwW7; _jc_save_wfdc_flag=dc; _jc_save_fromDate=2019-12-27; _jc_save_toDate=2019-12-04
+Host: kyfw.12306.cn
+If-Modified-Since: 0
+Referer: https://kyfw.12306.cn/otn/leftTicket/init?linktypeid=dc&fs=%E4%B8%8A%E6%B5%B7,SHH&ts=%E9%83%91%E5%B7%9E,ZZF&date=2019-12-27&flag=N,N,Y
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+X-Requested-With: XMLHttpRequest
+
+###
+
