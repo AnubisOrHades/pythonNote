@@ -9,7 +9,8 @@ import threading
 import keyboard
 
 from Example.win.winInput import *
-from tools.audio import play_music
+# from tools.audio import play_music
+from Example.game.diablo.settings import *
 
 MIX_X = 1535
 MIX_Y = 863
@@ -51,19 +52,9 @@ class Skills:
 
 
 class Role:
-    LEFT_TOP = ""
-    RIGHT_BOTTOM = ""
+    LEFT_TOP = LEFT_TOP
+    RIGHT_BOTTOM = RIGHT_BOTTOM
     path = os.getcwd()
-    with open('{}/settings.txt'.format(path), "r")as f:
-        data = f.read()
-        for line in data.split("\n"):
-            if len(line) == 0:
-                continue
-            txt = line.split("=")[-1].split(",")
-            if "LEFT_TOP" in line:
-                LEFT_TOP = [int(txt[0].split()[0][1:]), int(txt[1].split()[0][:-1])]
-            elif "RIGHT_BOTTOM" in line:
-                RIGHT_BOTTOM = [int(txt[0].split()[0][1:]), int(txt[1].split()[0][:-1])]
 
     def __init__(self, *args):
         self.skills = args
@@ -90,18 +81,23 @@ class Role:
         box_x = int((cls.RIGHT_BOTTOM[0] - cls.LEFT_TOP[0]) / 9)
         box_y = int((cls.RIGHT_BOTTOM[1] - cls.LEFT_TOP[1]) / 6)
         start_xy = [int(cls.LEFT_TOP[0] + box_x / 2), int(cls.LEFT_TOP[1] + box_y / 2)]
-        print("({},{})\n{}".format(box_x, box_y, start_xy))
-        print("start".center(100, "="))
+        # print("({},{})\n{}".format(box_x, box_y, start_xy))
+        print("decompose_start".center(100, "="))
+        time.sleep(0.1)
+        mouse_click(DECOMPOSE)
+        time.sleep(0.1)
         for x in range(9):
             for y in range(6):
                 mouse_click(start_xy)
-                time.sleep(0.1)
+                time.sleep(0.01)
                 key_input("enter")
-                time.sleep(0.2)
+                time.sleep(0.01)
                 key_input("enter")
                 start_xy[1] += box_y
             start_xy[1] -= box_y * 6
             start_xy[0] += box_x
+        else:
+            print("decompose_end".center(100, "="))
 
     def auto_sate(self):
         for t in self.skills:
@@ -145,24 +141,18 @@ def open_secret():
 
 
 if __name__ == '__main__':
-    """"""
+    role = DIABLO_ROLE
     cyclone = Role(
-        Skills("key", "1", 21),
-        Skills("key", "2", 10),
-        Skills("key", "3", 60),
-        Skills("key", "4", 4),
+        Skills("key", "1", role["one"]),
+        Skills("key", "2", role["two"]),
+        Skills("key", "3", role["three"]),
+        Skills("key", "4", role["four"]),
         # Skills("mouse_click", None, 1)
     )
-    # cyclone = Role(
-    #     # Skills("key", "1", 21),
-    #     Skills("key", "2", 14),
-    #     Skills("key", "3", 8),
-    #     Skills("key", "4", 21),
-    # )
-    # keyboard.add_hotkey("1", cyclone.skills[0].clear_time)
     keyboard.add_hotkey("0", Role.goto_caldeum)
     keyboard.add_hotkey("f8", cyclone.skills_run)
     keyboard.add_hotkey("f7", Role.decompose)
     keyboard.add_hotkey("t", cyclone.skill_stop)
+    print("\n\n\n", "暗黑破坏神3自动脚本启动".center(100, "#"))
 
     keyboard.wait()
