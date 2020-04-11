@@ -7,19 +7,20 @@ from natsort import natsorted
 from urllib.parse import urljoin
 from dataclasses import dataclass
 from concurrent.futures import ThreadPoolExecutor
+from fake_useragent import UserAgent
 
 
 @dataclass
 class DownLoadM3U8:
     m3u8_url: str
-    file_name: str = 'new.mp4'
+    file_name: str
     path: str = r"."
-    max_workers = 10
+    max_workers = 100
 
     def __post_init__(self):
         self.headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36', }
-        self.threadpool = ThreadPoolExecutor(max_workers=10)
+            'User-Agent': UserAgent().chrome, }
+        self.thread_pool = ThreadPoolExecutor(max_workers=self.max_workers)
 
     def get_ts_url(self):
         m3u8_obj = m3u8.load(self.m3u8_url)
@@ -39,8 +40,8 @@ class DownLoadM3U8:
         ts_urls = self.get_ts_url()
         for index, ts_url in enumerate(ts_urls):
             # print(ts_url)
-            self.threadpool.submit(self.download_single_ts, [ts_url, f'{index}.ts'])
-        self.threadpool.shutdown()
+            self.thread_pool.submit(self.download_single_ts, [ts_url, f'{index}.ts'])
+        self.thread_pool.shutdown()
 
     def run(self):
         self.download_all_ts()
@@ -57,11 +58,11 @@ class DownLoadM3U8:
 
 
 if __name__ == '__main__':
-    m3u8_url = 'https://maomibf2.com/common/zw/2019_02/17/zw_HJDbpYML_wm/zw_HJDbpYML_wm.m3u8'
-    down_path = r'D:\FFOutput\1'
+    m3u8_url = 'http://aa.kk400500.com/20200116/BBVZwZdC/438kb/hls/index.m3u8'
+    down_path = r'D:'
     start = time.time()
 
-    M3U8 = DownLoadM3U8(m3u8_url, path=down_path)
+    M3U8 = DownLoadM3U8(m3u8_url, path=down_path, file_name="亚洲自慰在公共hd上.mp4")
     M3U8.run()
 
     end = time.time()
