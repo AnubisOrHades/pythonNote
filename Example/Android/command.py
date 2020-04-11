@@ -32,7 +32,7 @@ def menu():
     os.system("adb shell input keyevent 82")
 
 
-def click(x, y, t=1):
+def click(x, y, t=1.0):
     """
     单击
     :param x: x坐标
