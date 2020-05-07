@@ -10,10 +10,10 @@ three_lights = {
 }
 
 three_lights_q = {
-    "one": 2000,
-    "two": 1,
-    "three": 1,
-    "four": 1
+    "one": 14,
+    "two": 21,
+    "three": 1000,
+    "four": 21
 }
 
 wind = {
@@ -30,4 +30,4 @@ wind_q = {
     "four": 400
 }
 
-DIABLO_ROLE = three_lights
+DIABLO_ROLE = wind

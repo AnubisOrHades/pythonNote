@@ -9,7 +9,7 @@ import threading
 import keyboard
 
 from Example.win.winInput import *
-# from tools.audio import play_music
+from tools.audio import play_music
 from Example.game.diablo.settings import *
 
 MIX_X = 1535
@@ -86,8 +86,8 @@ class Role:
         time.sleep(0.1)
         mouse_click(DECOMPOSE)
         time.sleep(0.1)
-        for x in range(9):
-            for y in range(6):
+        for i in range(9):
+            for j in range(6):
                 mouse_click(start_xy)
                 time.sleep(0.01)
                 key_input("enter")
@@ -108,10 +108,10 @@ class Role:
         global START
         START = False if START else True
         if START:
-            # threading.Thread(target=play_music, args=(r".,/../media/audio/go.mp3",)).start()
+            threading.Thread(target=play_music, args=(r"../../../media/audio/go.mp3",)).start()
             self.auto_sate()
         else:
-            # threading.Thread(target=play_music, args=(r".,/../media/audio/stop.mp3",)).start()
+            threading.Thread(target=play_music, args=(r"../../../media/audio/stop.mp3",)).start()
             pass
 
     @classmethod
