@@ -311,16 +311,4 @@ class Nikki:
 
 if __name__ == '__main__':
     n = Nikki(devices_set["magic_20"])
-    # n.main()
-    '//img[@class="zoom"]/@src'
-    import os
-    s="""http://www.aibjx.biz/data/attachment/album/202001/02/225313v8zj18l68lxijliy.jpg
-http://www.aibjx.biz/data/attachment/album/202001/02/224628o8lav9ub1bl1ycxw.jpg
-http://www.aibjx.biz/data/attachment/album/202001/02/224626n1qhrlq11dmpg4qq.jpg
-http://www.aibjx.biz/data/attachment/album/202001/02/225315awc7o4vt7drvv1to.jpg"""
-    for i in s.split("\n"):
-        os.system('"D:\Program Files\Thunder Network\Thunder\Program\Thunder.exe" {}'.format(i))
-        # os.system('"D:\Program Files\Thunder Network\Thunder\Program\Thunder.exe" http://www.aish123.org/{}'.format(i))
-        print("http://www.aish123.org/"+i)
-
-    path="D:\Program Files\Thunder Network\Thunder\Program\Thunder.exe"
+    n.main()
