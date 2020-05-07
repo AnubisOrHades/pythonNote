@@ -1,5 +1,5 @@
 import requests
-from Example.my_get import down_load
+from tools.down_load.my_get import down_load
 import json
 
 path = r"D:\Anubis\SpiderData\哔哩哔哩\3次元"

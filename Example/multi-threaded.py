@@ -1,7 +1,6 @@
 import threading
 import queue
-import time
-from Example.my_get import down_load
+from tools.down_load.my_get import down_load
 
 tasks = queue.Queue()
 
