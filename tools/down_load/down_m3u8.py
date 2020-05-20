@@ -32,11 +32,11 @@ class DownLoadM3U8:
     def download_single_ts(self, urlinfo):
         url, ts_name = urlinfo
         try:
-            file_name = "{}\\{}".format(self.path, ts_name)
-            if os.path.isfile(file_name):
+            down_name = "{}\\{}".format(self.path, ts_name)
+            if os.path.isfile(down_name):
                 return None
             res = requests.get(url, headers=self.headers)
-            with open(file_name, 'wb') as fp:
+            with open(down_name, 'wb') as fp:
                 fp.write(res.content)
         except Exception as e:
             print("Error:{}".format(e))
