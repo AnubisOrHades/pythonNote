@@ -1,4 +1,5 @@
 import sys
+import os
 from you_get import common as you_get  # 导入you-get库
 
 
@@ -11,6 +12,8 @@ def down_load(local_path, url, name=None):
     :return:
     """
     try:
+        if not os.path.exists(local_path):
+            os.mkdir(local_path)
         print("开始".center(120, "="))
         sys.argv = ['you-get', '-o', local_path, "-O", name, url]  # sys传递参数执行下载，就像在命令行一样
         you_get.main()
@@ -35,6 +38,13 @@ def down_b_video(path=None, url=None, start=1, end=9):
             down_load(path, task)
         except Exception as e:
             print("Error:{}".format(e))
+    # 删除xml文件
+    for root, dirs, files in os.walk(path):
+        if root == path and dirs.__len__() == 0:
+            for f in files:
+                if f.split(".")[-1] == "xml":
+                    print(f)
+                    os.remove(r"{}\{}".format(path, f))
 
 
 def run(local_path, url):
@@ -55,8 +65,8 @@ def run(local_path, url):
 
 
 if __name__ == '__main__':
-    path = r"D:\Anubis\Video\linux"
-    url = "https://www.bilibili.com/video/av18156598?p=2"
+    down_load_path = "F:\\Video\\Web前端1000集全套视频带项目"
+    down_url = "https://www.bilibili.com/video/av625463848/?p=8"
     # run(path, urlList)
-    down_load(path,url)
+    down_load(down_load_path, down_url)
     # down_b_video(path, url, start=1, end=107)
