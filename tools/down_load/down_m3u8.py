@@ -43,12 +43,12 @@ class DownLoadM3U8:
         else:
             pass
         finally:
-            print(url)
+            print(ts_name)
 
     def download_all_ts(self):
         ts_urls = self.get_ts_url()
         for index, ts_url in enumerate(ts_urls):
-            self.thread_pool.submit(self.download_single_ts, [ts_url, f'{index}.ts'])
+            self.thread_pool.submit(self.download_single_ts, [ts_url, f'{index+1}.ts'])
         self.thread_pool.shutdown()
 
     def run(self):
@@ -71,7 +71,7 @@ if __name__ == '__main__':
     down_path = r'D:'
     file_name = "亚洲自慰在公共hd上.mp4"
 
-    M3U8 = DownLoadM3U8(m3u8_url, path=down_path, file_name=file_name)
+    M3U8 = DownLoadM3U8(m3u8_url, path=down_path, file_name=file_name,max_workers=50)
     M3U8.run()
 
     end = time.time()
