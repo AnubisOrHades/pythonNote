@@ -1,5 +1,6 @@
 import os
 import time
+import hashlib
 
 
 def devices():
@@ -90,6 +91,31 @@ def input_abd(text):
     time.sleep(1)
 
 
+def screenshot(pc_path=""):
+    """
+    手机截图上传PC
+    :param pc_path: 图片在PC上的路径
+    :return: None
+    """
+    try:
+        # 生成文件路径，文件名为MD5加密时间戳
+        file_path = r"/sdcard/截屏/{}.png".format(
+            hashlib.md5(str(time.time()).encode()).hexdigest()[8:-8])
+
+        # 截屏
+        os.system("adb shell screencap -p {file_path}".format(file_path=file_path))
+        # 上传至指定文件夹
+        os.system("adb pull {} {}".format(file_path, pc_path))
+        # 删除手机截屏
+        os.system("adb shell rm {}".format(file_path))
+    except Exception as e:
+        print("Error:{}".format(e))
+    else:
+        pass
+    finally:
+        pass
+
+
 if __name__ == '__main__':
     """"""
     # 查看输入法列表
@@ -97,9 +123,9 @@ if __name__ == '__main__':
     # 切换adbkeyboard输入法
     # os.system("adb shell ime set com.android.adbkeyboard/.AdbIME")
     # 切换搜狗输入法
-    os.system("adb shell ime set com.sohu.inputmethod.sogou/.SogouIME")
+    # os.system("adb shell ime set com.sohu.inputmethod.sogou/.SogouIME")
     # os.system("adb shell am broadcast -a ADB_INPUT_TEXT --es msg '上海-悠悠'")
-    devices()
+    # devices()
     # slide(500,200,500,1000,0.5)
     # click(500,500)
     # os.system("adb shell input swipe 500 200 500 1000")
