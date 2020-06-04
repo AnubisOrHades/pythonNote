@@ -1,4 +1,7 @@
+import os
+
 from PIL import Image
+from aip import AipOcr
 
 
 def img_shape(path):
@@ -22,7 +25,6 @@ def cut(path_in, path_out, box):
     """
     try:
         img = Image.open(path_in)
-        print(img.size)
         cropped = img.crop(box)  # (left, upper, right, lower)
         cropped.save(path_out)
     except Exception as e:
@@ -30,4 +32,28 @@ def cut(path_in, path_out, box):
     else:
         pass
     finally:
+        pass
+
+
+def get_txt_img(path):
+    """ 这里输入你创建应用获得的三个参数"""
+    APP_ID = '15803909'
+    API_KEY = 'd8voMcnrHZ6vadX578TvhRfd'
+    SECRET_KEY = 'FjLk1qojipmN5Pcfuj3Wo2SAzX9lURKX'
+
+    client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
+    if os.path.exists(path):
+        image = open(path, 'rb')
+    else:
+        print("Error:{}不存在".format(path))
+        return None
+    try:
+        data = client.basicAccurate(image.read()).get("words_result")
+        result = "\n".join([d["words"] for d in data])
+    except Exception as e:
+        print("Error:{}".format(e))
+    else:
+        return result
+    finally:
+        image.close()
         pass
