@@ -1,6 +1,4 @@
-LEFT_TOP = [1455, 560]
-RIGHT_BOTTOM = [1905, 860]
-DECOMPOSE = [150, 300]
+LEFT_TOP, RIGHT_BOTTOM, DECOMPOSE = None, None, None
 
 three_lights = {
     "one": 2,
@@ -30,4 +28,24 @@ wind_q = {
     "four": 400
 }
 
+witcher = {
+    "one": 400,
+    "two": 1,
+    "three": 9,
+    "four": 400
+}
+
+devices = {1: "magic", 2: "free"}
+
+device = devices[1]
+
 DIABLO_ROLE = wind
+
+if device == "magic":
+    LEFT_TOP = [1165, 450]
+    RIGHT_BOTTOM = [1530, 690]
+    DECOMPOSE = [125, 225]
+elif device == "free":
+    LEFT_TOP = [1455, 560]
+    RIGHT_BOTTOM = [1905, 860]
+    DECOMPOSE = [150, 300]
