@@ -1,5 +1,6 @@
 import win32api
 import win32con
+from win32gui import GetWindowText, GetForegroundWindow, IsWindow, IsWindowEnabled, IsWindowVisible, EnumWindows
 from ctypes import *
 import time
 
@@ -242,6 +243,47 @@ def input_txt(txt):
             key_input("space")
         else:
             key_input(s)
+
+
+def get_activate_window():
+    """
+    获取windows激活窗口（最顶端窗口）
+    :return:
+    """
+    try:
+        window_name = GetWindowText(GetForegroundWindow())
+    except Exception as e:
+        print("Error:{}".format(e))
+    else:
+        return window_name
+        pass
+    finally:
+        pass
+
+
+def get_windows():
+    """
+    获取所有窗口
+    :return:
+    """
+    try:
+        titles = set()
+
+        def foo(hwnd, nouse):
+            # 去掉下面这句就所有都输出了，但是我不需要那么多
+            if IsWindow(hwnd) and IsWindowEnabled(hwnd) and IsWindowVisible(hwnd):
+                titles.add(GetWindowText(hwnd))
+
+        EnumWindows(foo, 0)
+        lt = [t for t in titles if t]
+        lt.sort()
+    except Exception as e:
+        print("Error:{}".format(e))
+    else:
+        return lt
+        pass
+    finally:
+        pass
 
 
 if __name__ == "__main__":
