@@ -125,40 +125,44 @@ class Nikki:
             self.go_break()
 
     def garden(self):
-        try:
-            slide(800, 1100, 200, 1100, 300)
-            click(self.android["garden"]["door"][0], self.android["garden"]["door"][1])
+        for palace in self.android["garden"]["palace"]:
 
-            click(self.android["garden"]["task1"][0], self.android["garden"]["task1"][1])
-            click(self.android["garden"]["third"][0], self.android["garden"]["third"][1])
-            self.free()
-            self.free()
-            click(self.android["garden"]["free"][0], self.android["garden"]["free"][1])
-            click(self.android["garden"]["task2"][0], self.android["garden"]["task2"][1])
-            click(self.android["garden"]["third"][0], self.android["garden"]["third"][1])
-            self.free()
-            self.free()
-            click(self.android["garden"]["free"][0], self.android["garden"]["free"][1])
+            try:
+                slide(800, 1100, 200, 1100, 300)
+                click(self.android["garden"]["door"][0], self.android["garden"]["door"][1])
 
-            click(self.android["garden"]["change"][0], self.android["garden"]["change"][1])
-            click(self.android["garden"]["go_one"][0], self.android["garden"]["go_one"][1])
+                click(palace[0], palace[1])
 
-            click(self.android["garden"]["task1"][0], self.android["garden"]["task1"][1])
-            click(self.android["garden"]["third"][0], self.android["garden"]["third"][1])
-            self.free()
-            self.free()
-            click(self.android["garden"]["free"][0], self.android["garden"]["free"][1])
-            click(self.android["garden"]["task2"][0], self.android["garden"]["task2"][1])
-            click(self.android["garden"]["third"][0], self.android["garden"]["third"][1])
-            self.free()
-            self.free()
-            click(self.android["garden"]["free"][0], self.android["garden"]["free"][1])
-        except Exception as e:
-            print(e)
-        else:
-            pass
-        finally:
-            self.go_break()
+                click(self.android["garden"]["task1"][0], self.android["garden"]["task1"][1])
+                click(self.android["garden"]["third"][0], self.android["garden"]["third"][1])
+                self.free()
+                self.free()
+                click(self.android["garden"]["free"][0], self.android["garden"]["free"][1])
+                click(self.android["garden"]["task2"][0], self.android["garden"]["task2"][1])
+                click(self.android["garden"]["third"][0], self.android["garden"]["third"][1])
+                self.free()
+                self.free()
+                click(self.android["garden"]["free"][0], self.android["garden"]["free"][1])
+
+                click(self.android["garden"]["change"][0], self.android["garden"]["change"][1])
+                click(self.android["garden"]["go_one"][0], self.android["garden"]["go_one"][1])
+
+                click(self.android["garden"]["task1"][0], self.android["garden"]["task1"][1])
+                click(self.android["garden"]["third"][0], self.android["garden"]["third"][1])
+                self.free()
+                self.free()
+                click(self.android["garden"]["free"][0], self.android["garden"]["free"][1])
+                click(self.android["garden"]["task2"][0], self.android["garden"]["task2"][1])
+                click(self.android["garden"]["third"][0], self.android["garden"]["third"][1])
+                self.free()
+                self.free()
+                click(self.android["garden"]["free"][0], self.android["garden"]["free"][1])
+            except Exception as e:
+                print(e)
+            else:
+                pass
+            finally:
+                self.go_break()
 
     def sports(self):
         try:
@@ -278,6 +282,54 @@ class Nikki:
             pass
         finally:
             self.go_break()
+
+    def open_judges_box(self, num=10):
+        """
+        打来评选赛盒子
+        :param num: 盒子数量
+        :return:
+        """
+        for i in range(num):
+            click(self.android["judges"]["box"][0], self.android["judges"]["box"][1])
+
+    def change_clothe(self, clothe):
+        """
+        换衣服(单件)
+        :param clothe: 衣服名字
+        :return:
+        """
+        # 搜索
+        click(self.android["change_clothes"]["search"][0], self.android["change_clothes"]["search"][1])
+        # 获取焦点
+        click(self.android["change_clothes"]["focus"][0], self.android["change_clothes"]["focus"][1])
+        # 输入衣服名
+        input_abd(clothe)
+        # 完成输入enter
+        click(self.android["change_clothes"]["enter"][0], self.android["change_clothes"]["enter"][1])
+        click(self.android["change_clothes"]["choice"][0], self.android["change_clothes"]["choice"][1])
+
+    def change_clothes(self, clothe):
+        """
+        换衣服，可以是单件，也可以是多件
+        :param clothe: 衣服名字：单件类型str，多件类型tuple或list
+        :return:
+        """
+        if isinstance(clothe, str):
+            self.change_clothe(clothe)
+        elif isinstance(clothe, tuple) or isinstance(clothe, list):
+            for c in clothe:
+                self.change_clothe(c)
+
+    def change_suit(self, suit):
+        """
+        更换套装
+        :param suit: 套装，tuple或list
+        :return:
+        """
+        click(self.android["change_clothes"]["door"][0], self.android["change_clothes"]["door"][1])
+        click(self.android["change_clothes"]["clear"][0], self.android["change_clothes"]["clear"][1])
+        self.change_clothes(suit)
+        click(self.android["change_clothes"]["save"][0], self.android["change_clothes"]["save"][1])
 
     def main(self):
         # 迷之屋
