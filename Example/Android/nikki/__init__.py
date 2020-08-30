@@ -44,6 +44,16 @@ class Nikki:
         finally:
             pass
 
+    def _click(self, fun, spot):
+        """
+        获取点的坐标
+        :param fun: 模块
+        :param spot: 点
+        :return: 点的坐标
+        """
+        click(self.android[fun][spot][0], self.android[fun][spot][1])
+        pass
+
     def go_break(self):
         try:
             click(self.android["break"][0], self.android["break"][1])
@@ -56,15 +66,15 @@ class Nikki:
 
     def house_of_mystery(self):
         try:
-            click(self.android["house_of_mystery"]["door"][0], self.android["house_of_mystery"]["door"][1])
-            click(self.android["house_of_mystery"]["magical"][0], self.android["house_of_mystery"]["magical"][1])
+            self._click("house_of_mystery", "door")
+            self._click("house_of_mystery", "magical")
             self.free()
             self.free()
             time.sleep(2)
-            click(self.android["house_of_mystery"]["cancel"][0], self.android["house_of_mystery"]["cancel"][1])
-            click(self.android["house_of_mystery"]["right"][0], self.android["house_of_mystery"]["right"][1])
+            self._click("house_of_mystery", "cancel")
+            self._click("house_of_mystery", "right")
             for i in range(4):
-                click(self.android["house_of_mystery"]["mystery"][0], self.android["house_of_mystery"]["mystery"][1])
+                self._click("house_of_mystery", "mystery")
                 # time.sleep(1.5)
                 self.free()
                 self.free()
@@ -81,10 +91,10 @@ class Nikki:
 
     def union(self):
         try:
-            click(self.android["union"]["door"][0], self.android["union"]["door"][1])
-            click(self.android["union"]["library"][0], self.android["union"]["library"][1])
+            self._click("union", "door")
+            self._click("union", "library")
             for i in range(3):
-                click(self.android["union"]["cleared"][0], self.android["union"]["cleared"][1])
+                self._click("union", "cleared")
                 self.free()
             else:
                 self.go_break()
@@ -98,20 +108,20 @@ class Nikki:
 
     def dream(self):
         try:
-            click(self.android["dream"]["door"][0], self.android["dream"]["door"][1])
+            self._click("dream", "door")
 
-            click(self.android["dream"]["go_tasks"][0], self.android["dream"]["go_tasks"][1])
+            self._click("dream", "go_tasks")
 
             for t in self.android["dream"]["tasks"]:
                 click(t[0], t[1])
-                click(self.android["dream"]["enter"][0], self.android["dream"]["enter"][1])
-                click(self.android["dream"]["free"][0], self.android["dream"]["free"][1])
-                click(self.android["dream"]["free"][0], self.android["dream"]["free"][1])
+                self._click("dream", "enter")
+                self._click("dream", "free")
+                self._click("dream", "free")
 
-            click(self.android["dream"]["break"][0], self.android["dream"]["break"][1])
+            self._click("dream", "break")
 
-            click(self.android["dream"]["islands"][0], self.android["dream"]["islands"][1])
-            click(self.android["dream"]["explore"][0], self.android["dream"]["explore"][1])
+            self._click("dream", "islands")
+            self._click("dream", "explore")
             time.sleep(2)
             self.free()
             self.free()
@@ -126,37 +136,36 @@ class Nikki:
 
     def garden(self):
         for palace in self.android["garden"]["palace"]:
-
             try:
                 slide(800, 1100, 200, 1100, 300)
-                click(self.android["garden"]["door"][0], self.android["garden"]["door"][1])
+                self._click("garden", "door")
 
                 click(palace[0], palace[1])
 
-                click(self.android["garden"]["task1"][0], self.android["garden"]["task1"][1])
-                click(self.android["garden"]["third"][0], self.android["garden"]["third"][1])
+                self._click("garden", "task1")
+                self._click("garden", "third")
                 self.free()
                 self.free()
-                click(self.android["garden"]["free"][0], self.android["garden"]["free"][1])
-                click(self.android["garden"]["task2"][0], self.android["garden"]["task2"][1])
-                click(self.android["garden"]["third"][0], self.android["garden"]["third"][1])
+                self._click("garden", "free")
+                self._click("garden", "task2")
+                self._click("garden", "third")
                 self.free()
                 self.free()
-                click(self.android["garden"]["free"][0], self.android["garden"]["free"][1])
+                self._click("garden", "free")
 
-                click(self.android["garden"]["change"][0], self.android["garden"]["change"][1])
-                click(self.android["garden"]["go_one"][0], self.android["garden"]["go_one"][1])
+                self._click("garden", "change")
+                self._click("garden", "go_one")
 
-                click(self.android["garden"]["task1"][0], self.android["garden"]["task1"][1])
-                click(self.android["garden"]["third"][0], self.android["garden"]["third"][1])
+                self._click("garden", "task1")
+                self._click("garden", "third")
                 self.free()
                 self.free()
-                click(self.android["garden"]["free"][0], self.android["garden"]["free"][1])
-                click(self.android["garden"]["task2"][0], self.android["garden"]["task2"][1])
-                click(self.android["garden"]["third"][0], self.android["garden"]["third"][1])
+                self._click("garden", "free")
+                self._click("garden", "task2")
+                self._click("garden", "third")
                 self.free()
                 self.free()
-                click(self.android["garden"]["free"][0], self.android["garden"]["free"][1])
+                self._click("garden", "free")
             except Exception as e:
                 print(e)
             else:
@@ -166,12 +175,12 @@ class Nikki:
 
     def sports(self):
         try:
-            click(self.android["sports"]["door"][0], self.android["sports"]["door"][1])
+            self._click("sports", "door")
 
             for i in range(5):
-                click(self.android["sports"]["stage"][0], self.android["sports"]["stage"][1])
+                self._click("sports", "stage")
                 time.sleep(1.5)
-                click(self.android["sports"]["quick"][0], self.android["sports"]["quick"][1])
+                self._click("sports", "quick")
                 time.sleep(1)
                 self.free()
                 self.free()
@@ -185,29 +194,29 @@ class Nikki:
 
     def cabana(self):
         try:
-            click(self.android["cabana"]["door"][0], self.android["cabana"]["door"][1])
+            self._click("cabana", "door")
 
             time_start = "2020-04-11 01:12:12"
             start = time.mktime(time.strptime(time_start, "%Y-%m-%d %H:%M:%S"))
             s = (time.time() - start) // 60 // 60 // 24
             if s % 2 == 0:
-                click(self.android["cabana"]["wish"][0], self.android["cabana"]["wish"][1])
-                click(self.android["cabana"]["long"][0], self.android["cabana"]["long"][1])
+                self._click("cabana", "wish")
+                self._click("cabana", "long")
 
                 for i in self.android["cabana"]["task"]:
                     click(i[0], i[1])
-                    click(self.android["cabana"]["wishing"][0], self.android["cabana"]["wishing"][1])
+                    self._click("cabana", "wishing")
                     self.free()
                     self.free()
-                    click(self.android["cabana"]["cancel"][0], self.android["cabana"]["cancel"][1])
+                    self._click("cabana", "cancel")
                     self.go_break()
                 else:
                     self.go_break()
 
             for i in self.android["cabana"]["stroll"]:
                 click(i[0], i[1])
-            for i in range(5):
-                click(self.android["cabana"]["visit"][0], self.android["cabana"]["visit"][1])
+            for i in range(6):
+                self._click("cabana", "visit")
                 time.sleep(1)
             else:
                 self.go_break()
@@ -220,7 +229,7 @@ class Nikki:
 
     def furniture(self):
         try:
-            click(self.android["furniture"]["door"][0], self.android["furniture"]["door"][1])
+            self._click("furniture", "door")
         except Exception as e:
             print(e)
         else:
@@ -230,16 +239,13 @@ class Nikki:
 
     def shopping(self):
         try:
-            click(self.android["shopping"]["door"][0], self.android["shopping"]["door"][1])
-            # time.sleep(0.5)
-            click(self.android["shopping"]["clothe"][0], self.android["shopping"]["clothe"][1])
-            # time.sleep(0.5)
-            click(self.android["shopping"]["buy"][0], self.android["shopping"]["buy"][1])
-            # time.sleep(0.5)
+            self._click("shopping", "door")
+            self._click("shopping", "clothe")
+            self._click("shopping", "buy")
             for i in range(3):
-                click(self.android["shopping"]["add"][0], self.android["shopping"]["add"][1])
+                self._click("shopping", "add")
 
-            click(self.android["shopping"]["buy_enter"][0], self.android["shopping"]["buy_enter"][1])
+            self._click("shopping", "buy_enter")
         except Exception as e:
             print(e)
         else:
@@ -249,14 +255,12 @@ class Nikki:
 
     def design_center(self):
         try:
-            click(self.android["design_center"]["door"][0], self.android["design_center"]["door"][1])
-            click(self.android["design_center"]["decompose_door"][0],
-                  self.android["design_center"]["decompose_door"][1])
+            self._click("design_center", "door")
+            self._click("design_center", "decompose_door")
             for i in range(4):
-                click(self.android["design_center"]["clothe"][0], self.android["design_center"]["clothe"][1])
-            click(self.android["design_center"]["decompose"][0], self.android["design_center"]["decompose"][1])
-            click(self.android["design_center"]["decompose_enter"][0],
-                  self.android["design_center"]["decompose_enter"][1])
+                self._click("design_center", "clothe")
+            self._click("design_center", "decompose")
+            self._click("design_center", "decompose_enter")
             for i in range(6):
                 time.sleep(0.5)
                 self.free()
@@ -269,10 +273,10 @@ class Nikki:
 
     def judges(self):
         try:
-            click(self.android["judges"]["door"][0], self.android["judges"]["door"][1])
-            click(self.android["judges"]["vote_door"][0], self.android["judges"]["vote_door"][1])
+            self._click("judges", "door")
+            self._click("judges", "vote_door")
             for i in range(35):
-                click(self.android["judges"]["vote"][0], self.android["judges"]["vote"][1], 0.5)
+                self._click("judges", "vote")
                 self.free()
             else:
                 self.go_break()
@@ -290,7 +294,7 @@ class Nikki:
         :return:
         """
         for i in range(num):
-            click(self.android["judges"]["box"][0], self.android["judges"]["box"][1])
+            self._click("judges", "box")
 
     def change_clothe(self, clothe):
         """
@@ -299,14 +303,14 @@ class Nikki:
         :return:
         """
         # 搜索
-        click(self.android["change_clothes"]["search"][0], self.android["change_clothes"]["search"][1])
+        self._click("change_clothes", "search")
         # 获取焦点
-        click(self.android["change_clothes"]["focus"][0], self.android["change_clothes"]["focus"][1])
+        self._click("change_clothes", "focus")
         # 输入衣服名
         input_abd(clothe)
         # 完成输入enter
-        click(self.android["change_clothes"]["enter"][0], self.android["change_clothes"]["enter"][1])
-        click(self.android["change_clothes"]["choice"][0], self.android["change_clothes"]["choice"][1])
+        self._click("change_clothes", "enter")
+        self._click("change_clothes", "choice")
 
     def change_clothes(self, clothe):
         """
@@ -326,10 +330,10 @@ class Nikki:
         :param suit: 套装，tuple或list
         :return:
         """
-        click(self.android["change_clothes"]["door"][0], self.android["change_clothes"]["door"][1])
-        click(self.android["change_clothes"]["clear"][0], self.android["change_clothes"]["clear"][1])
+        self._click("change_clothes", "door")
+        self._click("change_clothes", "clear")
         self.change_clothes(suit)
-        click(self.android["change_clothes"]["save"][0], self.android["change_clothes"]["save"][1])
+        self._click("change_clothes", "save")
 
     def main(self):
         # 迷之屋
