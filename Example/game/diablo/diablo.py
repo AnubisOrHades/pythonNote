@@ -17,6 +17,8 @@ MIX_Y = 863
 
 START = False
 
+WINDOW = "暗黑破坏神III"
+
 
 class Skills:
     def __init__(self, skills_type=None, skills_key=None, skill_sleep=None):
@@ -27,6 +29,8 @@ class Skills:
 
     def auto_skills(self):
         while True:
+            if get_activate_window() != WINDOW:
+                continue
             try:
                 if self.skills_type == "mouse_click":
                     mouse_click()
@@ -66,6 +70,8 @@ class Role:
         进入卡尔蒂姆
         :return:
         """
+        if get_activate_window() != WINDOW:
+            return None
         # 打开大地图
         key_input("m")
         # 切换世界地图
@@ -78,6 +84,8 @@ class Role:
 
     @classmethod
     def decompose(cls):
+        if get_activate_window() != WINDOW:
+            return None
         box_x = int((cls.RIGHT_BOTTOM[0] - cls.LEFT_TOP[0]) / 9)
         box_y = int((cls.RIGHT_BOTTOM[1] - cls.LEFT_TOP[1]) / 6)
         start_xy = [int(cls.LEFT_TOP[0] + box_x / 2), int(cls.LEFT_TOP[1] + box_y / 2)]
