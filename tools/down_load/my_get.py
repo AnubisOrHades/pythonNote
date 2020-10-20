@@ -1,6 +1,34 @@
 import sys
 import os
+
+import requests
+from lxml import etree
+from fake_useragent import UserAgent
 from you_get import common as you_get  # 导入you-get库
+
+
+def get_bili_link(link):
+    """
+    获取真实链接
+    :param link: 链接
+    :return:
+    """
+    try:
+        headers = {
+            'User-Agent': UserAgent().chrome
+        }
+        response = requests.get(link, headers=headers)
+        document = etree.HTML(response.text)
+        url = document.xpath('//meta[@itemprop="url"]/@content')[0]
+        print(url)
+        pass
+    except Exception as e:
+        print("Error:{}".format(e))
+    else:
+        return url
+        pass
+    finally:
+        pass
 
 
 def down_load(local_path, url, name=None):
@@ -68,5 +96,5 @@ if __name__ == '__main__':
     down_load_path = "F:\\Video\\Web前端1000集全套视频带项目"
     down_url = "https://www.bilibili.com/video/av625463848/?p=8"
     # run(path, urlList)
-    down_load(down_load_path, down_url)
+    down_load("D:\\", "https://www.bilibili.com/video/av969676820/")
     # down_b_video(path, url, start=1, end=107)
