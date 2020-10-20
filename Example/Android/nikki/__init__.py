@@ -141,7 +141,22 @@ class Nikki:
                 self._click("garden", "door")
 
                 click(palace[0], palace[1])
+                if self.android["garden"]["palace"].index(palace) == 1:
+                    self._click("garden", "task1")
+                    self._click("garden", "third2")
+                    self.free()
+                    self.free()
+                    self._click("garden", "free")
+                    self._click("garden", "task2")
+                    self._click("garden", "third2")
+                    self.free()
+                    self.free()
+                    self._click("garden", "free")
 
+                    self._click("garden", "change")
+                    self._click("garden", "go_one")
+
+                    continue
                 self._click("garden", "task1")
                 self._click("garden", "third")
                 self.free()
