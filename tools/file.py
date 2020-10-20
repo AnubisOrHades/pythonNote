@@ -6,7 +6,7 @@ os.walk(path)       获取路径下所有文件夹及文件（包括子文件夹
 os.listdir(path)    获取路径下所有文件夹及文件
 os.path.split(path) 分割文件路径及文件名,返回一个元组
 os.path.splitext(path)	分割路径中的文件名与拓展名
-
+os.path.exists(path)判断路径是否存在
 """
 
 
@@ -19,6 +19,10 @@ class File(object):
         """
         self.path = p
         self.name = n
+        self.local_path = "{}\\{}".format(self.path, self.name)
+        if not os.path.exists(self.local_path):
+            print("Error：文件不存在")
+            return
         self.size = self.get_size()
         # self.md5 = self.get_md5()
         pass
@@ -28,7 +32,7 @@ class File(object):
         获取文件大小
         :return:
         """
-        f_size = os.path.getsize("{}\\{}".format(self.path, self.name))
+        f_size = os.path.getsize(self.local_path)
         f_size = round(f_size, 2)
         if f_size < 1024:
             print("{}B".format(round(f_size, 2)))
@@ -47,10 +51,19 @@ class File(object):
         :return:
         """
         md5_obj = hashlib.md5()
-        with open("{}\\{}".format(self.path, self.name), "rb")as f:
+        with open(self.local_path, "rb")as f:
             md5_obj.update(f.read())
             result = md5_obj.hexdigest()
         return result
+
+    def re_name(self, new_name):
+        """
+        重命名
+        :param new_name:
+        :return:
+        """
+        new_name = "{}{}".format(new_name, os.path.splitext(self.local_path)[1])
+        os.rename(self.local_path, os.path.join(self.path, new_name))
 
     def __str__(self):
         return ""
