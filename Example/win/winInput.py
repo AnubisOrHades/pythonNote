@@ -2,6 +2,8 @@ import win32api
 import win32con
 from win32gui import GetWindowText, GetForegroundWindow, IsWindow, IsWindowEnabled, IsWindowVisible, EnumWindows
 from ctypes import *
+import pyperclip
+
 import time
 
 VK_CODE = {
@@ -237,12 +239,9 @@ def input_txt(txt):
     :param txt: 文本
     :return:
     """
-    print(txt)
-    for s in txt:
-        if s.isspace():
-            key_input("space")
-        else:
-            key_input(s)
+    pyperclip.copy(txt)
+
+    key_input("ctrl", "v")
 
 
 def get_activate_window():
