@@ -11,15 +11,20 @@ os.path.exists(path)判断路径是否存在
 
 
 class File(object):
-    def __init__(self, p, n):
+    def __init__(self, p, n=None):
         """
         初始化文件
         :param p: 文件路径，所在文件夹
         :param n: 文件名
         """
-        self.path = p
-        self.name = n
-        self.local_path = "{}\\{}".format(self.path, self.name)
+        if "." in p:
+            self.path = os.path.split(p)[0]
+            self.name = os.path.split(p)[1]
+            self.local_path = p
+        else:
+            self.path = p
+            self.name = n
+            self.local_path = "{}\\{}".format(self.path, self.name)
         if not os.path.exists(self.local_path):
             print("Error：文件不存在")
             return
@@ -62,7 +67,8 @@ class File(object):
         :param new_name:
         :return:
         """
-        new_name = "{}{}".format(new_name, os.path.splitext(self.local_path)[1])
+        if "." not in new_name:
+            new_name = "{}{}".format(new_name, os.path.splitext(self.local_path)[1])
         os.rename(self.local_path, os.path.join(self.path, new_name))
 
     def __str__(self):
