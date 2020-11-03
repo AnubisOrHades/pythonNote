@@ -3,6 +3,8 @@ import os
 from moviepy.editor import VideoFileClip
 import cv2
 
+from tools.file import File
+
 
 def preview(video_name, video_path, img_path, video_format="mp4", img_format="jpg"):
     """
@@ -63,3 +65,39 @@ def get_video_times(filename):
     # clip.reader.close()
     # clip.audio.reader.close_proc()
     return video_time
+
+
+def de_watermark(file_path, x, y, w, h):
+    """
+    去水印
+    :return:
+    """
+    try:
+        in_file = File(file_path)
+        old_name = in_file.name
+        print(old_name)
+        in_file.re_name("in")
+        in_path = "{}\in{}".format(in_file.path, os.path.splitext(in_file.local_path)[1])
+        out_path = "{}\out{}".format(in_file.path, os.path.splitext(in_file.local_path)[1])
+        try:
+            os.system("ffmpeg -i {} -vf delogo=x={}:y={}:w={}:h={} {}".format(in_path, x, y, w, h, out_path))
+            pass
+        except Exception as e:
+            File(in_path).re_name(old_name)
+            print("Error:{}".format(e))
+        else:
+            File(out_path).re_name(old_name)
+            pass
+        finally:
+            pass
+        pass
+    except Exception as e:
+        print("Error:{}".format(e))
+    else:
+        pass
+    finally:
+        pass
+
+
+if __name__ == '__main__':
+    pass
