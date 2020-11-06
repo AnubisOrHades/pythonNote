@@ -48,6 +48,9 @@ def down_load(local_path, url, name=None):
         print("下载完成".center(120, "="))
     except Exception as e:
         print(e, "\n", url)
+        return 0
+    else:
+        return 1
 
 
 def down_b_video(path=None, url=None, start=1, end=9):
