@@ -16,60 +16,73 @@ MongoDB state:
 """
 
 
-def get_data(link, mongodb, up_name=None):
-    pn = 1
-    while 1:
-        try:
-            response = requests.get(link.format(pn))
-            result = response.json()["data"]["list"]["vlist"]
-            if len(result) == 0:
-                break
-            code = '{}.save{}'.format(mongodb, tuple(
-                {"link": "https://www.bilibili.com/video/av{}/".format(l.get("aid")), "up": up_name} for l in result))
-            eval(code)
-            pass
-        except Exception as e:
-            print("Error:{}".format(e))
-        else:
-            pn += 1
-            pass
-        finally:
-            sleep(5)
-            pass
+class BilibiliUp(object):
+    def __init__(self, name, link, mdb, file_path, preview_path, clean_path):
+        self.name = name
+        self.link = link
+        self.mdb = mdb
+        self.file_path = file_path
+        self.preview_path = preview_path
+        self.clean_path = clean_path
 
-
-def down_video(down_load_path, mongodb):
-    d = mongodb.select(n=None, up="晓丹小仙女儿")
-    try:
-        for s in d:
-            if s.get("state") == 1:
-                continue
+    def get_data(self):
+        pn = 1
+        while 1:
             try:
-                down_load(down_load_path, s.get("link"))
-                mongodb.update({"link": s.get("link")}, {"state": 1})
-                print(s.get("link"))
+                link = self.link.replace("pn=1", "pn={}".format(pn))
+                response = requests.get(link)
+                result = response.json()["data"]["list"]["vlist"]
+                if len(result) == 0:
+                    break
+                for l in result:
+                    aid = l.get("aid")
+                    if self.mdb.select(aid=aid).count() == 0:
+                        self.mdb.save({
+                            "link": "https://www.bilibili.com/video/av{}/".format(l.get("aid")),
+                            "up": self.name,
+                            "aid": aid,
+                            "title": l.get("title"),
+                            "length": l.get("length"),
+                            "pic": l.get("pic"),
+                            "state": 0
+                        })
+                    else:
+                        print("视频已存在")
+                pass
+            except Exception as e:
+                print("Error:{}".format(e))
+            else:
+                pn += 1
+                pass
+            finally:
+                sleep(5)
+                pass
+
+    def down_video(self, count=10):
+        for video in self.mdb.select(up=self.name, n=count):
+            try:
+                if video.get("state") is not None and video.get("state") >= 1:
+                    continue
+                down_state = down_load(self.file_path, video.get("link"), name=str(video.get("aid")))
+                if down_state == 0:
+                    continue
+                self.mdb.update({"aid": video.get("aid")}, {"state": 1})
+                pass
             except Exception as e:
                 print("Error:{}".format(e))
             else:
                 pass
             finally:
                 pass
-        pass
-    except Exception as e:
-        print("Error:{}".format(e))
-    else:
-        pass
-    finally:
-        pass
+
+    def __str__(self):
+        return ""
 
 
 def preview_list(path):
     try:
         files = os.listdir(path)
         for video in files:
-            # video_path = os.path.join(path, video)
-            #
-            # img_path="{}\\feng\\{}.png".format(path,os.path.splitext(video)[0])
             preview(os.path.splitext(video)[0], path, "{}\\feng".format(path))
             print(video)
         pass
@@ -132,4 +145,23 @@ if __name__ == '__main__':
         "watermark": {"y": 20, "w": 430, "h": 100},
         "mdb": MongodbClient(db="SpiderData", table="bilibili", host="localhost")
     }
-    de_watermark_list(xiao_dan)
+    # baoke_meng = {
+    #     "name": "宝可梦",
+    #     "link": [
+    #         "https://api.bilibili.com/x/space/arc/search?mid=292703435&ps=30&tid=0&pn=2&keyword=&order=pubdate&jsonp=jsonp",
+    #         ""],
+    #     "file_path": r"D:\Anubis\Video\bilibili\yuan",
+    #     "preview_path": r"D:\Anubis\Video\bilibili\feng",
+    #     "clean_path": r"D:\Anubis\Video\bilibili\clear",
+    #
+    # }
+    baoke_meng = BilibiliUp(
+        name="宝可梦",
+        link="https://api.bilibili.com/x/space/arc/search?mid=292703435&ps=30&tid=0&"
+             "pn=1&keyword=&order=pubdate&jsonp=jsonp",
+        file_path=r"D:\Anubis\Video\bilibili\yuan",
+        preview_path=r"D:\Anubis\Video\bilibili\feng",
+        clean_path=r"D:\Anubis\Video\bilibili\clear",
+        mdb=MongodbClient(db="SpiderData", table="bilibili", host="localhost")
+    )
+    baoke_meng.down_video()
