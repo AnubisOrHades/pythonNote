@@ -9,11 +9,50 @@ from tools.down_load.my_get import down_load
 from tools.video import preview, de_watermark
 from tools.image import get_txt_img, img_shape
 from tools.file import File
+from tools.down_load import ordinary_down_load
 
 """
 MongoDB state:
     1:已下载；2：已生成预览图（第一帧）；3已清除水印；
 """
+
+
+class UpVideo(object):
+    def __init__(self, mongodb_obj=None, link=None, up=None, aid=None, title=None, length=None, pic=None, state=None):
+        if mongodb_obj is None:
+            self.link = link
+            self.up = up
+            self.aid = aid
+            self.title = title
+            self.length = length
+            self.pic = pic
+            self.state = state
+        else:
+            self.link = mongodb_obj.get("link")
+            self.up = mongodb_obj.get("up")
+            self.aid = mongodb_obj.get("aid")
+            self.title = mongodb_obj.get("title")
+            self.length = mongodb_obj.get("length")
+            self.pic = mongodb_obj.get("pic")
+            self.state = mongodb_obj.get("state")
+        pass
+
+    def save_to_mongodb(self, mdb):
+        if mdb.select(aid=self.aid).count() == 0:
+            mdb.save({
+                "link": "https://www.bilibili.com/video/av{}/".format(self.aid),
+                "up": self.up,
+                "aid": self.aid,
+                "title": self.title,
+                "length": self.length,
+                "pic": self.pic,
+                "state": 0
+            })
+        else:
+            print("视频已存在")
+
+    def __str__(self):
+        return ""
 
 
 class BilibiliUp(object):
@@ -35,19 +74,28 @@ class BilibiliUp(object):
                 if len(result) == 0:
                     break
                 for l in result:
-                    aid = l.get("aid")
-                    if self.mdb.select(aid=aid).count() == 0:
-                        self.mdb.save({
-                            "link": "https://www.bilibili.com/video/av{}/".format(l.get("aid")),
-                            "up": self.name,
-                            "aid": aid,
-                            "title": l.get("title"),
-                            "length": l.get("length"),
-                            "pic": l.get("pic"),
-                            "state": 0
-                        })
-                    else:
-                        print("视频已存在")
+                    UpVideo(
+                        link="https://www.bilibili.com/video/av{}/".format(l.get("aid")),
+                        up=self.name,
+                        aid=l.get("aid"),
+                        title=l.get("title"),
+                        length=l.get("length"),
+                        pic=l.get("pic"),
+                        state=0
+                    ).save_to_mongodb(self.mdb)
+                    # aid = l.get("aid")
+                    # if self.mdb.select(aid=aid).count() == 0:
+                    #     self.mdb.save({
+                    #         "link": "https://www.bilibili.com/video/av{}/".format(l.get("aid")),
+                    #         "up": self.name,
+                    #         "aid": aid,
+                    #         "title": l.get("title"),
+                    #         "length": l.get("length"),
+                    #         "pic": l.get("pic"),
+                    #         "state": 0
+                    #     })
+                    # else:
+                    #     print("视频已存在")
                 pass
             except Exception as e:
                 print("Error:{}".format(e))
@@ -61,12 +109,34 @@ class BilibiliUp(object):
     def down_video(self, count=10):
         for video in self.mdb.select(up=self.name, n=count):
             try:
-                if video.get("state") is not None and video.get("state") >= 1:
+                v_obj = UpVideo(video)
+                if v_obj.state is not None and v_obj.state >= 1:
                     continue
-                down_state = down_load(self.file_path, video.get("link"), name=str(video.get("aid")))
+                down_state = down_load(self.file_path, v_obj.link, name=str(v_obj.aid))
                 if down_state == 0:
                     continue
                 self.mdb.update({"aid": video.get("aid")}, {"state": 1})
+                pass
+            except Exception as e:
+                print("Error:{}".format(e))
+            else:
+                pass
+            finally:
+                pass
+
+    def preview_list(self, count=100):
+        for video in self.mdb.select(up=self.name, n=count):
+            try:
+                v_obj = UpVideo(video)
+                if v_obj.state is None and v_obj.state != 1:
+                    continue
+                if v_obj.pic is None:
+                    preview_result = preview(v_obj.aid, self.file_path, self.preview_path)
+                else:
+                    preview_result = ordinary_down_load("http:" + v_obj.pic,
+                                                        "{}\\{}.jpg".format(self.preview_path, v_obj.aid))
+                if preview_result:
+                    self.mdb.update({"aid": video.get("aid")}, {"state": 2})
                 pass
             except Exception as e:
                 print("Error:{}".format(e))
@@ -79,19 +149,19 @@ class BilibiliUp(object):
         return ""
 
 
-def preview_list(path):
-    try:
-        files = os.listdir(path)
-        for video in files:
-            preview(os.path.splitext(video)[0], path, "{}\\feng".format(path))
-            print(video)
-        pass
-    except Exception as e:
-        print("Error:{}".format(e))
-    else:
-        pass
-    finally:
-        pass
+# def preview_list(path):
+#     try:
+#         files = os.listdir(path)
+#         for video in files:
+#             preview(os.path.splitext(video)[0], path, "{}\\feng".format(path))
+#             print(video)
+#         pass
+#     except Exception as e:
+#         print("Error:{}".format(e))
+#     else:
+#         pass
+#     finally:
+#         pass
 
 
 def de_watermark_list(up_user):
@@ -164,4 +234,4 @@ if __name__ == '__main__':
         clean_path=r"D:\Anubis\Video\bilibili\clear",
         mdb=MongodbClient(db="SpiderData", table="bilibili", host="localhost")
     )
-    baoke_meng.down_video()
+    baoke_meng.preview_list()
