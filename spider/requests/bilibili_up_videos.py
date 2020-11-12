@@ -1,8 +1,10 @@
 from time import sleep
 import os
 import shutil
+import json
 
 import requests
+import jsonpath
 
 from db.MongoDB.pm import *
 from tools.down_load.my_get import down_load
@@ -19,6 +21,17 @@ MongoDB state:
 
 class UpVideo(object):
     def __init__(self, mongodb_obj=None, link=None, up=None, aid=None, title=None, length=None, pic=None, state=None):
+        """
+        UpVideo 初始化
+        :param mongodb_obj: MongoDB数据对象
+        :param link: 视频连接
+        :param up: 视频作者
+        :param aid: 视频id
+        :param title: 视频标题
+        :param length: 视频长度
+        :param pic: 视频封面
+        :param state: 状态{0：只获取了数据，1：已下载，2：已有封面，3：已去水印}
+        """
         if mongodb_obj is None:
             self.link = link
             self.up = up
@@ -38,21 +51,42 @@ class UpVideo(object):
         pass
 
     def save_to_mongodb(self, mdb):
-        if mdb.select(aid=self.aid).count() == 0:
-            mdb.save({
-                "link": "https://www.bilibili.com/video/av{}/".format(self.aid),
-                "up": self.up,
-                "aid": self.aid,
-                "title": self.title,
-                "length": self.length,
-                "pic": self.pic,
-                "state": 0
-            })
+        """
+        存储数据到MongoDB
+        :param mdb: MongoDB连接对象
+        :return: 存储结果{0：失败，1：成功，9：数据已存在}
+        """
+        try:
+            if mdb.select(aid=self.aid).count() == 0:
+                mdb.save({
+                    "link": "https://www.bilibili.com/video/av{}/".format(self.aid),
+                    "up": self.up,
+                    "aid": self.aid,
+                    "title": self.title,
+                    "length": self.length,
+                    "pic": self.pic,
+                    "state": 0
+                })
+
+            else:
+                print(self.aid, "视频已存在")
+                return 9
+            pass
+        except Exception as e:
+            print("Error:{}".format(e))
+            return 0
+
         else:
-            print("视频已存在")
+            return 1
+            pass
+        finally:
+            pass
 
     def __str__(self):
-        return ""
+        return "link:{}\nup:{}\naid:{}\ntitle:{}\nlength:{}\npic:{}\nstate:{}".format(self.link, self.up,
+                                                                                      self.aid, self.title,
+                                                                                      self.length, self.pic,
+                                                                                      self.state)
 
 
 class BilibiliUp(object):
@@ -104,6 +138,42 @@ class BilibiliUp(object):
                 pass
             finally:
                 sleep(5)
+                pass
+
+    def get_js_data(self, headers_text):
+        pn = 1
+        headers = get_headers(headers_text)
+        while 1:
+            try:
+                link = self.link.replace("pn=1", "pn={}".format(pn))
+                response = requests.get(link, headers=headers)
+                sleep(5)
+                result = response.text
+                result = json.loads(result[6:-1])
+                video_list = jsonpath.jsonpath(result, '$..archives')[0]
+                print(len(video_list), pn)
+                if len(video_list) == 0:
+                    break
+                for v in video_list:
+                    video = UpVideo(
+                        link="https://www.bilibili.com/video/av{}/".format(v.get("aid")),
+                        up=self.name,
+                        aid=v.get("aid"),
+                        title=v.get("title"),
+                        length=v.get("duration"),
+                        pic=v.get("pic"),
+                        state=0
+                    )
+                    save_result = video.save_to_mongodb(self.mdb)
+                    if save_result == 9:
+                        self.mdb.update({"aid": video.aid}, {"up": self.name})
+                pass
+            except Exception as e:
+                print("Error:{}".format(e))
+            else:
+                pn += 1
+                pass
+            finally:
                 pass
 
     def down_video(self, count=10):
@@ -202,8 +272,25 @@ def de_watermark_list(up_user):
             pass
 
 
+def get_headers(text):
+    try:
+        headers = {}
+        for t in text.split("\n"):
+            k = t.split(": ")
+            headers[k[0]] = k[1]
+        pass
+    except Exception as e:
+        print("Error:{}".format(e))
+    else:
+        return headers
+        pass
+    finally:
+        pass
+
+
 if __name__ == '__main__':
     pass
+
     xiao_dan = {
         "name": "晓丹小仙女儿",
         "link": "https://api.bilibili.com/x/space/arc/search?mid=21648772&"
@@ -234,4 +321,22 @@ if __name__ == '__main__':
         clean_path=r"D:\Anubis\Video\bilibili\clear",
         mdb=MongodbClient(db="SpiderData", table="bilibili", host="localhost")
     )
+    sss = """accept: */*
+accept-encoding: gzip, deflate, br
+accept-language: zh-CN,zh;q=0.9
+cookie: finger=158939783; buvid3=25EAAFFA-208B-482A-9730-E51C080CAEB649027infoc; stardustvideo=1; sid=htigihgq; rpdid=|(umJJJRmll|0J'ullYl|Yllk; LIVE_BUVID=AUTO8415597013171326; fts=1562493994; stardustpgcv=0606; im_notify_type_446127665=0; INTVER=1; laboratory=1-1; DedeUserID=446127665; DedeUserID__ckMd5=6cd4ad1346cc8113; SESSDATA=0aa0d033%2C1608263596%2C1102c*61; bili_jct=bf3c3090f739518e260c071aa643131e; _uuid=9229A7BB-E31B-8DB2-CF1D-F014517A6BFD88968infoc; CURRENT_FNVAL=80; blackside_state=1; CURRENT_QUALITY=80; bsource=search_baidu; bp_video_offset_446127665=445617983836792180; PVID=2; bfe_id=393becc67cde8e85697ff111d724b3c8
+referer: https://space.bilibili.com/
+sec-ch-ua: "Chromium";v="86", "\"Not\\A;Brand";v="99", "Google Chrome";v="86"
+sec-ch-ua-mobile: ?0
+sec-fetch-dest: script
+sec-fetch-mode: no-cors
+sec-fetch-site: same-site
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36"""
+    s_link = "https://api.bilibili.com/x/space/channel/video?mid=292703435&cid=152031&pn=1" \
+             "&ps=30&order=0&jsonp=jsonp&callback=__jp6"
+    # result = requests.get(link, headers=get_headers(sss)).text
+    # print(json.loads(result[6:-1]))
+    baoke_meng.link = s_link
+    baoke_meng.name = "宋姝儿"
+    baoke_meng.down_video()
     baoke_meng.preview_list()
