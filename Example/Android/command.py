@@ -116,6 +116,23 @@ def screenshot(pc_path=""):
         pass
 
 
+def quiet():
+    """
+    调节手机媒体音量至静音
+    :return:
+    """
+    try:
+        for i in range(15):
+            os.system("adb shell input keyevent 25")
+        pass
+    except Exception as e:
+        print("Error:{}".format(e))
+    else:
+        pass
+    finally:
+        pass
+
+
 if __name__ == '__main__':
     """"""
     # 查看输入法列表
