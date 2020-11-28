@@ -45,7 +45,7 @@ devices_set = {
         "sports": {
             "door": (175, 900),
             "stage": (570, 1950),
-            "quick": (880, 1960),
+            "quick": (900, 2000),
         },
         # 小屋
         "cabana": {
