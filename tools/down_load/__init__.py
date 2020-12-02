@@ -8,7 +8,7 @@ headers = {
 
 def ordinary_down_load(url, file_path):
     try:
-        response = requests.get(url, heders=headers)
+        response = requests.get(url, headers=headers)
         if response.status_code == 200:
             with open(file_path, "wb") as f:
                 f.write(response.content)
