@@ -84,6 +84,10 @@ class Role:
 
     @classmethod
     def decompose(cls):
+        """
+        分解装备，第一列不分解
+        :return:
+        """
         if get_activate_window() != WINDOW:
             return None
         box_x = int((cls.RIGHT_BOTTOM[0] - cls.LEFT_TOP[0]) / 9)
@@ -108,11 +112,19 @@ class Role:
             print("decompose_end".center(100, "="))
 
     def auto_sate(self):
+        """
+        开始自动放技能
+        :return:
+        """
         for t in self.skills:
             threading.Thread(target=t.auto_skills).start()
             # keyboard.add_hotkey(t.skills_key, t.clear_time)
 
     def skills_run(self):
+        """
+        为开启自动脚本添加提示音
+        :return:
+        """
         global START
         START = False if START else True
         if START:
@@ -121,6 +133,21 @@ class Role:
         else:
             threading.Thread(target=play_music, args=(r"../../../media/audio/stop.mp3",)).start()
             pass
+
+    @classmethod
+    def upgrading(cls):
+        """
+        升级大秘境宝石，并回城
+        :return:
+        """
+        if get_activate_window() != WINDOW:
+            return None
+        mouse_click((300, 500))
+        time.sleep(2)
+        for i in range(5):
+            mouse_click((200, 440))
+            time.sleep(2)
+        key_input("t")
 
     @classmethod
     def skill_stop(cls):
@@ -161,6 +188,7 @@ if __name__ == '__main__':
     keyboard.add_hotkey("f8", cyclone.skills_run)
     keyboard.add_hotkey("f7", Role.decompose)
     keyboard.add_hotkey("t", cyclone.skill_stop)
+    keyboard.add_hotkey("w", cyclone.upgrading)
     print("\n\n\n", "暗黑破坏神3自动脚本启动".center(100, "#"))
 
     keyboard.wait()
