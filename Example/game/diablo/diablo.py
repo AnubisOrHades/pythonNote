@@ -142,10 +142,10 @@ class Role:
         """
         if get_activate_window() != WINDOW:
             return None
-        mouse_click((300, 500))
+        mouse_click(GEMSTONE)
         time.sleep(2)
         for i in range(5):
-            mouse_click((200, 440))
+            mouse_click(UPGRADING)
             time.sleep(2)
         key_input("t")
 
