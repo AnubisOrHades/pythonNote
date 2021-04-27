@@ -180,7 +180,17 @@ def mouse_click(coordinates=None):
         mouse_move(coordinates)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
-    time.sleep(0.05)
+    time.sleep(0.001)
+
+
+def mouse_right_click():
+    """
+    鼠标右击
+    :return:
+    """
+    win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0)
+    win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0)
+    time.sleep(0.001)
 
 
 def mouse_dclick(coordinates=None):
@@ -212,7 +222,7 @@ def key_input(*args):
             # print("KEY:{}".format(key))
             win32api.keybd_event(VK_CODE[args[0]], 0, 0, 0)
             win32api.keybd_event(VK_CODE[args[0]], 0, win32con.KEYEVENTF_KEYUP, 0)
-            time.sleep(0.01)
+            time.sleep(0.001)
         else:
             print("按键错误！！！")
     else:
