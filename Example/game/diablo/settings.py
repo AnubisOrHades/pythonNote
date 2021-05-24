@@ -12,14 +12,15 @@ skill_matching = {
         "three": 1000,
         "four": 21
     },
+    # 旋风斩，转转转
     "wind": {
-        "one": 21,
+        "one": 1,
         "two": 50,
         "three": 60,
         "four": 4
     },
     "wind_q": {
-        "one": 21,
+        "one": 1,
         "two": 20,
         "three": 6,
         "four": 400
@@ -31,6 +32,8 @@ skill_matching = {
         "four": 400
     },
     "death": {
+        "name": "死灵燃烧骨矛",
+        "describe": "",
         "one": 120,
         "two": 120,
         "three": 1,
@@ -41,6 +44,20 @@ skill_matching = {
         "two": 15,
         "three": 15,
         "four": 45
+    },
+    "sword": {
+        "name": "火鸟水果刀",
+        "one": 15000,
+        "two": 8,
+        "three": 3,
+        "four": 300
+    },
+    "fire": {
+        "name": "武僧劲风煞",
+        "one": 15000,
+        "two": 5,
+        "three": 300,
+        "four": 300
     }
 }
 
@@ -76,4 +93,3 @@ RIGHT_BOTTOM = devices[device]["right_button"]
 DECOMPOSE = devices[device]["decompose"]
 UPGRADING = devices[device]["upgrading"]
 GEMSTONE = devices[device]["gemstone"]
-
