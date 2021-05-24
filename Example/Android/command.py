@@ -146,3 +146,5 @@ if __name__ == '__main__':
     # slide(500,200,500,1000,0.5)
     # click(500,500)
     # os.system("adb shell input swipe 500 200 500 1000")
+    for i in range(34):
+        click(500, 2000)
