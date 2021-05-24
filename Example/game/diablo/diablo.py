@@ -101,9 +101,9 @@ class Role:
         for i in range(9):
             for j in range(6):
                 mouse_click(start_xy)
-                time.sleep(0.01)
+                time.sleep(0.001)
                 key_input("enter")
-                time.sleep(0.01)
+                time.sleep(0.001)
                 key_input("enter")
                 start_xy[1] += box_y
             start_xy[1] -= box_y * 6
@@ -128,10 +128,10 @@ class Role:
         global START
         START = False if START else True
         if START:
-            threading.Thread(target=play_music, args=(r"../../../media/audio/go.mp3",)).start()
+            # threading.Thread(target=play_music, args=(r"../../../media/audio/go.mp3",)).start()
             self.auto_sate()
         else:
-            threading.Thread(target=play_music, args=(r"../../../media/audio/stop.mp3",)).start()
+            # threading.Thread(target=play_music, args=(r"../../../media/audio/stop.mp3",)).start()
             pass
 
     @classmethod
@@ -148,6 +148,15 @@ class Role:
             mouse_click(UPGRADING)
             time.sleep(2)
         key_input("t")
+
+    @classmethod
+    def gambling(cls):
+        """
+        赌博
+        :return:
+        """
+        for i in range(27):
+            mouse_right_click()
 
     @classmethod
     def skill_stop(cls):
@@ -189,6 +198,7 @@ if __name__ == '__main__':
     keyboard.add_hotkey("f7", Role.decompose)
     keyboard.add_hotkey("t", cyclone.skill_stop)
     keyboard.add_hotkey("w", cyclone.upgrading)
+    keyboard.add_hotkey("ctrl+r", cyclone.gambling)
     print("\n\n\n", "暗黑破坏神3自动脚本启动".center(100, "#"))
 
     keyboard.wait()
